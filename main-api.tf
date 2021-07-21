@@ -1,5 +1,6 @@
 locals {
-  app_name_and_env = local.app_name_and_env
+  app_name_and_env = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
+  app_env          = data.terraform_remote_state.common.outputs.app_env
 }
 
 /*
@@ -66,7 +67,7 @@ resource "aws_cloudwatch_log_group" "riskman" {
 
   tags = {
     app_name = var.app_name
-    app_env  = data.terraform_remote_state.common.outputs.app_env
+    app_env  = local.app_env
   }
 }
 
@@ -83,7 +84,7 @@ resource "random_id" "db_password" {
 module "rds" {
   source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=3.6.2"
   app_name            = var.app_name
-  app_env             = data.terraform_remote_state.common.outputs.app_env
+  app_env             = local.app_env
   engine              = "postgres"
   instance_class      = var.db_instance_class
   storage_encrypted   = var.db_storage_encrypted
@@ -160,7 +161,7 @@ resource "aws_s3_bucket" "attachments" {
   tags = {
     Name     = var.aws_s3_bucket
     app_name = var.app_name
-    app_env  = data.terraform_remote_state.common.outputs.app_env
+    app_env  = local.app_env
   }
 }
 
@@ -176,7 +177,7 @@ data "template_file" "task_def_api" {
     memory                = var.memory
     docker_image          = module.ecr.repo_url
     docker_tag            = var.docker_tag
-    APP_ENV               = data.terraform_remote_state.common.outputs.app_env
+    APP_ENV               = local.app_env
     DATABASE_URL          = "postgres://${var.db_user}:${random_id.db_password.hex}@${module.rds.address}:5432/${var.db_database}?sslmode=disable"
     UI_URL                = var.ui_url
     HOST                  = "https://${var.subdomain_api}.${var.cloudflare_domain}"
@@ -206,7 +207,7 @@ module "ecsapi" {
   source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=3.6.2"
   cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   service_name       = "${var.app_name}-api"
-  service_env        = data.terraform_remote_state.common.outputs.app_env
+  service_env        = local.app_env
   container_def_json = data.template_file.task_def_api.rendered
   desired_count      = var.desired_count
   tg_arn             = aws_alb_target_group.tg.arn
@@ -239,7 +240,7 @@ data "cloudflare_zones" "domain" {
  */
 resource "aws_alb_target_group" "adminer" {
   name = replace(
-    "tg-${var.app_name}-adminer-${data.terraform_remote_state.common.outputs.app_env}",
+    "tg-${var.app_name}-adminer-${local.app_env}",
     "/(.{0,32})(.*)/",
     "$1",
   )
@@ -299,7 +300,7 @@ module "ecsadminer" {
   source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=3.6.2"
   cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   service_name       = "${var.app_name}-adminer"
-  service_env        = data.terraform_remote_state.common.outputs.app_env
+  service_env        = local.app_env
   container_def_json = data.template_file.task_def_adminer.rendered
   desired_count      = var.enable_adminer
   tg_arn             = aws_alb_target_group.adminer.arn
