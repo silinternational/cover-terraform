@@ -1,9 +1,13 @@
+locals {
+  app_name_and_env = local.app_name_and_env
+}
+
 /*
  * Create ECR repo
  */
 module "ecr" {
   source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=3.6.2"
-  repo_name           = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
+  repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
   cd_user_arn         = data.terraform_remote_state.common.outputs.codeship_arn
@@ -14,7 +18,7 @@ module "ecr" {
  */
 resource "aws_alb_target_group" "tg" {
   name = replace(
-    "tg-${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}",
+    "tg-${local.app_name_and_env}",
     "/(.{0,32})(.*)/",
     "$1",
   )
@@ -57,7 +61,7 @@ resource "aws_alb_listener_rule" "tg" {
  * Create cloudwatch log group for app logs
  */
 resource "aws_cloudwatch_log_group" "riskman" {
-  name              = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
+  name              = local.app_name_and_env
   retention_in_days = 14
 
   tags = {
@@ -96,7 +100,7 @@ module "rds" {
  * Create user to interact with S3, SES, and DynamoDB (for CertMagic)
  */
 resource "aws_iam_user" "riskman" {
-  name = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
+  name = local.app_name_and_env
 }
 
 resource "aws_iam_access_key" "attachments" {
@@ -186,7 +190,7 @@ data "template_file" "task_def_api" {
     EMAIL_SERVICE         = var.email_service
     log_group             = aws_cloudwatch_log_group.riskman.name
     region                = var.aws_default_region
-    log_stream_prefix     = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
+    log_stream_prefix     = local.app_name_and_env
     ROLLBAR_TOKEN         = var.rollbar_token
     LOG_LEVEL             = var.log_level
     DISABLE_TLS           = var.disable_tls
