@@ -72,6 +72,10 @@ variable "subdomain_api" {
   default = "riskman-api"
 }
 
+variable "subdomain_ui" {
+  default = "riskman"
+}
+
 variable "docker_tag" {
   default = "latest"
 }
