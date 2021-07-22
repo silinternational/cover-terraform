@@ -22,4 +22,5 @@ output "aws_ses_access_key_id" {
 output "aws_ses_secret_access_key" {
   description = "access key secret for SES (internal and Auth0), S3 (attachments), and DynamoDB (CertMagic)"
   value       = aws_iam_access_key.attachments.secret
+  sensitive   = true
 }
