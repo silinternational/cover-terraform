@@ -3,7 +3,9 @@ data "terraform_remote_state" "common" {
 
   config = {
     organization = var.tf_remote_common_organization
-    name         = var.tf_remote_common_workspace
+    workspaces = {
+      name = var.tf_remote_common_workspace
+    }
   }
 }
 
