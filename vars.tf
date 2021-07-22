@@ -65,7 +65,10 @@ variable "rollbar_token" {
 variable "session_secret" {
 }
 
-variable "tf_remote_common" {
+variable "tf_remote_common_organization" {
+}
+
+variable "tf_remote_common_workspace" {
 }
 
 variable "subdomain_api" {
