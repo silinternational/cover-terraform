@@ -65,10 +65,6 @@ variable "rollbar_token" {
 variable "session_secret" {
 }
 
-variable "subdomain_ui_dns_name" {
-  description = "Used as value sent to cloudflare for dns record, separate var from subdomain_ui so that in prod we can pass @"
-}
-
 variable "tf_remote_common" {
 }
 
