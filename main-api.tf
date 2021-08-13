@@ -172,31 +172,42 @@ data "template_file" "task_def_api" {
   template = file("${path.module}/task-def-api.json")
 
   vars = {
-    GO_ENV                = var.go_env
-    cpu                   = var.cpu
-    memory                = var.memory
-    docker_image          = module.ecr.repo_url
-    docker_tag            = var.docker_tag
-    APP_ENV               = local.app_env
-    DATABASE_URL          = "postgres://${var.db_user}:${random_id.db_password.hex}@${module.rds.address}:5432/${var.db_database}?sslmode=disable"
-    UI_URL                = var.ui_url
-    HOST                  = "https://${var.subdomain_api}.${var.cloudflare_domain}"
-    AWS_DEFAULT_REGION    = var.aws_default_region
-    AWS_S3_BUCKET         = var.aws_s3_bucket
-    AWS_ACCESS_KEY_ID     = aws_iam_access_key.attachments.id
-    AWS_SECRET_ACCESS_KEY = aws_iam_access_key.attachments.secret
-    SESSION_SECRET        = var.session_secret
-    SUPPORT_EMAIL         = var.support_email
-    EMAIL_FROM_ADDRESS    = var.email_from_address
-    EMAIL_SERVICE         = var.email_service
-    log_group             = aws_cloudwatch_log_group.riskman.name
-    region                = var.aws_default_region
-    log_stream_prefix     = local.app_name_and_env
-    ROLLBAR_TOKEN         = var.rollbar_token
-    LOG_LEVEL             = var.log_level
-    DISABLE_TLS           = var.disable_tls
-    CERT_DOMAIN_NAME      = "${var.subdomain_api}.${var.cloudflare_domain}"
-    APP_NAME              = var.app_name_user
+    GO_ENV                              = var.go_env
+    cpu                                 = var.cpu
+    memory                              = var.memory
+    docker_image                        = module.ecr.repo_url
+    docker_tag                          = var.docker_tag
+    APP_ENV                             = local.app_env
+    DATABASE_URL                        = "postgres://${var.db_user}:${random_id.db_password.hex}@${module.rds.address}:5432/${var.db_database}?sslmode=disable"
+    HOST                                = "https://${var.subdomain_api}.${var.cloudflare_domain}"
+    AWS_DEFAULT_REGION                  = var.aws_default_region
+    AWS_S3_BUCKET                       = var.aws_s3_bucket
+    AWS_ACCESS_KEY_ID                   = aws_iam_access_key.attachments.id
+    AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.attachments.secret
+    EMAIL_FROM_ADDRESS                  = var.email_from_address
+    EMAIL_SERVICE                       = var.email_service
+    log_group                           = aws_cloudwatch_log_group.riskman.name
+    region                              = var.aws_default_region
+    log_stream_prefix                   = local.app_name_and_env
+    LOG_LEVEL                           = var.log_level
+    DISABLE_TLS                         = var.disable_tls
+    CERT_DOMAIN_NAME                    = "${var.subdomain_api}.${var.cloudflare_domain}"
+    API_BASE_URL                        = "https://${var.subdomain_api}.${var.cloudflare_domain}"
+    APP_NAME                            = var.app_name_user
+    SAML_SP_ENTITY_ID                   = var.saml_sp_entity_id
+    SAML_IDP_ENTITY_ID                  = var.saml_idp_entity_id
+    SAML_IDP_CERT                       = var.saml_idp_cert
+    SAML_SP_CERT                        = var.saml_sp_cert
+    SAML_SP_PRIVATE_KEY                 = var.saml_sp_private_key
+    SAML_ASSERTION_CONSUMER_SERVICE_URL = var.saml_assertion_consumer_service_url
+    SAML_SSO_URL                        = var.saml_sso_url
+    SAML_CHECK_RESPONSE_SIGNING         = var.saml_check_response_signing
+    SAML_SIGN_REQUEST                   = var.saml_sign_request
+    SAML_REQUIRE_ENCRYPTED_ASSERTION    = var.saml_require_encrypted_assertion
+    SESSION_SECRET                      = var.session_secret
+    ROLLBAR_SERVER_ROOT                 = var.rollbar_server_root
+    ROLLBAR_TOKEN                       = var.rollbar_token
+    UI_URL                              = var.ui_url
   }
 }
 
