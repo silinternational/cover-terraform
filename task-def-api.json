@@ -54,10 +54,6 @@
         "value": "${AWS_SECRET_ACCESS_KEY}"
       },
       {
-        "name": "SUPPORT_EMAIL",
-        "value": "${SUPPORT_EMAIL}"
-      },
-      {
         "name": "EMAIL_FROM_ADDRESS",
         "value": "${EMAIL_FROM_ADDRESS}"
       },
@@ -66,20 +62,8 @@
         "value": "${EMAIL_SERVICE}"
       },
       {
-        "name": "SESSION_SECRET",
-        "value": "${SESSION_SECRET}"
-      },
-      {
-        "name": "UI_URL",
-        "value": "${UI_URL}"
-      },
-      {
         "name": "GO_ENV",
         "value": "${GO_ENV}"
-      },
-      {
-        "name": "ROLLBAR_TOKEN",
-        "value": "${ROLLBAR_TOKEN}"
       },
       {
         "name": "LOG_LEVEL",
@@ -94,8 +78,72 @@
         "value": "${CERT_DOMAIN_NAME}"
       },
       {
-        "name": "APP_NAME",
+        "name": "RISKMAN_API_BASE_URL",
+        "value": "${API_BASE_URL}"
+      },
+      {
+        "name": "RISKMAN_APP_NAME",
         "value": "${APP_NAME}"
+      },
+      {
+        "name": "RISKMAN_SAML_SP_ENTITY_ID",
+        "value": "${SAML_SP_ENTITY_ID}"
+      },
+      {
+        "name": "RISKMAN_SAML_AUDIENCE_URI",
+        "value": "${SAML_SP_ENTITY_ID}"
+      },
+      {
+        "name": "RISKMAN_SAML_IDP_ENTITY_ID",
+        "value": "${SAML_IDP_ENTITY_ID}"
+      },
+      {
+        "name": "RISKMAN_SAML_IDP_CERT",
+        "value": "${SAML_IDP_CERT}"
+      },
+      {
+        "name": "RISKMAN_SAML_SP_CERT",
+        "value": "${SAML_SP_CERT}"
+      },
+      {
+        "name": "RISKMAN_SAML_SP_PRIVATE_KEY",
+        "value": "${SAML_SP_PRIVATE_KEY}"
+      },
+      {
+        "name": "RISKMAN_SAML_ASSERTION_CONSUMER_SERVICE_URL",
+        "value": "${SAML_ASSERTION_CONSUMER_SERVICE_URL}"
+      },
+      {
+        "name": "RISKMAN_SAML_SSO_URL",
+        "value": "${SAML_SSO_URL}"
+      },
+      {
+        "name": "RISKMAN_SAML_CHECK_RESPONSE_SIGNING",
+        "value": "${SAML_CHECK_RESPONSE_SIGNING}"
+      },
+      {
+        "name": "RISKMAN_SAML_SIGN_REQUEST",
+        "value": "${SAML_SIGN_REQUEST}"
+      },
+      {
+        "name": "RISKMAN_SAML_REQUIRE_ENCRYPTED_ASSERTION",
+        "value": "${SAML_REQUIRE_ENCRYPTED_ASSERTION}"
+      },
+      {
+        "name": "RISKMAN_ROLLBAR_SERVER_ROOT",
+        "value": "${ROLLBAR_SERVER_ROOT}"
+      },
+      {
+        "name": "RISKMAN_ROLLBAR_TOKEN",
+        "value": "${ROLLBAR_TOKEN}"
+      },
+      {
+        "name": "RISKMAN_SESSION_SECRET",
+        "value": "${SESSION_SECRET}"
+      },
+      {
+        "name": "RISKMAN_UIURL",
+        "value": "${UI_URL}"
       }
     ],
     "ulimits": null,
