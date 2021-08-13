@@ -130,16 +130,16 @@
         "value": "${SAML_REQUIRE_ENCRYPTED_ASSERTION}"
       },
       {
-        "name": "RISKMAN_SESSION_SECRET",
-        "value": "${SESSION_SECRET}"
-      },
-      {
         "name": "RISKMAN_ROLLBAR_SERVER_ROOT",
         "value": "${ROLLBAR_SERVER_ROOT}"
       },
       {
         "name": "RISKMAN_ROLLBAR_TOKEN",
         "value": "${ROLLBAR_TOKEN}"
+      },
+      {
+        "name": "RISKMAN_SESSION_SECRET",
+        "value": "${SESSION_SECRET}"
       },
       {
         "name": "RISKMAN_UIURL",

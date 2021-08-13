@@ -204,9 +204,9 @@ data "template_file" "task_def_api" {
     SAML_CHECK_RESPONSE_SIGNING         = var.saml_check_response_signing
     SAML_SIGN_REQUEST                   = var.saml_sign_request
     SAML_REQUIRE_ENCRYPTED_ASSERTION    = var.saml_require_encrypted_assertion
-    SESSION_SECRET                      = var.session_secret
     ROLLBAR_SERVER_ROOT                 = var.rollbar_server_root
     ROLLBAR_TOKEN                       = var.rollbar_token
+    SESSION_SECRET                      = var.session_secret
     UI_URL                              = var.ui_url
   }
 }

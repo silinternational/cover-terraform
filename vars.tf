@@ -147,9 +147,6 @@ variable "saml_require_encrypted_assertion" {
   default = "true"
 }
 
-variable "session_secret" {
-}
-
 variable "rollbar_server_root" {
     default = "github.com/silinternational/riskman-api"
 }
@@ -157,6 +154,9 @@ variable "rollbar_server_root" {
 variable "rollbar_token" {
   description = "Rollbar API token. Omit to disable rollbar logging."
   default     = ""
+}
+
+variable "session_secret" {
 }
 
 variable "ui_url" {
