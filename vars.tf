@@ -57,9 +57,6 @@ variable "rollbar_token" {
   default     = ""
 }
 
-variable "session_secret" {
-}
-
 variable "tf_remote_common_organization" {
 }
 
@@ -148,6 +145,9 @@ variable "saml_sign_request" {
 
 variable "saml_require_encrypted_assertion" {
   default = "true"
+}
+
+variable "session_secret" {
 }
 
 variable "rollbar_server_root" {
