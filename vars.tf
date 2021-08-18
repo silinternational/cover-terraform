@@ -7,7 +7,7 @@ variable "aws_region" {
 }
 
 variable "app_name" {
-  default = "riskman"
+  default = "cover"
 }
 
 variable "memory" {
@@ -148,12 +148,7 @@ variable "saml_require_encrypted_assertion" {
 }
 
 variable "rollbar_server_root" {
-    default = "github.com/silinternational/riskman-api"
-}
-
-variable "rollbar_token" {
-  description = "Rollbar API token. Omit to disable rollbar logging."
-  default     = ""
+  default = "github.com/silinternational/riskman-api"
 }
 
 variable "session_secret" {
