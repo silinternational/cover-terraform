@@ -64,11 +64,11 @@ variable "tf_remote_common_workspace" {
 }
 
 variable "subdomain_api" {
-  default = "riskman-api"
+  default = "cover-api"
 }
 
 variable "subdomain_ui" {
-  default = "riskman"
+  default = "cover"
 }
 
 variable "docker_tag" {
@@ -80,11 +80,11 @@ variable "alerts_email_enabled" {
 }
 
 variable "db_database" {
-  default = "riskman"
+  default = "cover"
 }
 
 variable "db_user" {
-  default = "riskman"
+  default = "cover"
 }
 
 variable "db_instance_class" {
@@ -148,7 +148,7 @@ variable "saml_require_encrypted_assertion" {
 }
 
 variable "rollbar_server_root" {
-  default = "github.com/silinternational/riskman-api"
+  default = "github.com/silinternational/cover-api"
 }
 
 variable "session_secret" {

@@ -61,7 +61,7 @@ resource "aws_alb_listener_rule" "tg" {
 /*
  * Create cloudwatch log group for app logs
  */
-resource "aws_cloudwatch_log_group" "riskman" {
+resource "aws_cloudwatch_log_group" "cover" {
   name              = local.app_name_and_env
   retention_in_days = 14
 
@@ -100,16 +100,16 @@ module "rds" {
 /*
  * Create user to interact with S3, SES, and DynamoDB (for CertMagic)
  */
-resource "aws_iam_user" "riskman" {
+resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
 }
 
 resource "aws_iam_access_key" "attachments" {
-  user = aws_iam_user.riskman.name
+  user = aws_iam_user.cover.name
 }
 
-resource "aws_iam_user_policy" "riskman" {
-  user = aws_iam_user.riskman.name
+resource "aws_iam_user_policy" "cover" {
+  user = aws_iam_user.cover.name
 
   policy = <<EOM
 {
@@ -149,7 +149,7 @@ data "template_file" "bucket_policy" {
 
   vars = {
     bucket_name = var.aws_s3_bucket
-    user_arn    = aws_iam_user.riskman.arn
+    user_arn    = aws_iam_user.cover.arn
   }
 }
 
@@ -186,7 +186,7 @@ data "template_file" "task_def_api" {
     AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.attachments.secret
     EMAIL_FROM_ADDRESS                  = var.email_from_address
     EMAIL_SERVICE                       = var.email_service
-    log_group                           = aws_cloudwatch_log_group.riskman.name
+    log_group                           = aws_cloudwatch_log_group.cover.name
     region                              = var.aws_default_region
     log_stream_prefix                   = local.app_name_and_env
     LOG_LEVEL                           = var.log_level
