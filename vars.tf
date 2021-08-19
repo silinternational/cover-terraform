@@ -88,7 +88,7 @@ variable "db_user" {
 }
 
 variable "db_instance_class" {
-  default = "db.t2.micro"
+  default = "db.t3.micro"
 }
 
 variable "db_storage_encrypted" {
