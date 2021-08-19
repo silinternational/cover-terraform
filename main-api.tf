@@ -201,6 +201,7 @@ data "template_file" "task_def_api" {
     SAML_SP_PRIVATE_KEY                 = var.saml_sp_private_key
     SAML_ASSERTION_CONSUMER_SERVICE_URL = var.saml_assertion_consumer_service_url
     SAML_SSO_URL                        = var.saml_sso_url
+    SAML_SLO_URL                        = var.saml_slo_url
     SAML_CHECK_RESPONSE_SIGNING         = var.saml_check_response_signing
     SAML_SIGN_REQUEST                   = var.saml_sign_request
     SAML_REQUIRE_ENCRYPTED_ASSERTION    = var.saml_require_encrypted_assertion

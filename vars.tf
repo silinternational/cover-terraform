@@ -135,6 +135,9 @@ variable "saml_assertion_consumer_service_url" {
 variable "saml_sso_url" {
 }
 
+variable "saml_slo_url" {
+}
+
 variable "saml_check_response_signing" {
   default = "true"
 }
