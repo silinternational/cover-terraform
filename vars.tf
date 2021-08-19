@@ -111,7 +111,7 @@ variable "disable_tls" {
 
 variable "app_name_user" {
   description = "App name used for end-user presentation, e.g. email template"
-  default     = "Riskman"
+  default     = "Cover"
 }
 
 variable "saml_sp_entity_id" {

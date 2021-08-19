@@ -1,2 +1,2 @@
 # cover-terraform
-Terraform config for Riskman app
+Terraform config for Cover app
