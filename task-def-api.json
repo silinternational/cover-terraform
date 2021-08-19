@@ -118,6 +118,10 @@
         "value": "${SAML_SSO_URL}"
       },
       {
+        "name": "SAML_SLO_URL",
+        "value": "${SAML_SLO_URL}"
+      },
+      {
         "name": "SAML_CHECK_RESPONSE_SIGNING",
         "value": "${SAML_CHECK_RESPONSE_SIGNING}"
       },
