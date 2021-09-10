@@ -28,10 +28,6 @@ resource "aws_alb_target_group" "tg" {
   vpc_id               = data.terraform_remote_state.common.outputs.vpc_id
   deregistration_delay = "30"
 
-  stickiness {
-    type = "lb_cookie"
-  }
-
   health_check {
     path     = "/status"
     matcher  = "204"
