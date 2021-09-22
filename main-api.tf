@@ -176,14 +176,14 @@ data "template_file" "task_def_api" {
     APP_ENV                             = local.app_env
     DATABASE_URL                        = "postgres://${var.db_user}:${random_id.db_password.hex}@${module.rds.address}:5432/${var.db_database}?sslmode=disable"
     HOST                                = "https://${var.subdomain_api}.${var.cloudflare_domain}"
-    AWS_DEFAULT_REGION                  = var.aws_default_region
+    AWS_REGION                          = var.aws_region
     AWS_S3_BUCKET                       = var.aws_s3_bucket
     AWS_ACCESS_KEY_ID                   = aws_iam_access_key.attachments.id
     AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.attachments.secret
     EMAIL_FROM_ADDRESS                  = var.email_from_address
     EMAIL_SERVICE                       = var.email_service
     log_group                           = aws_cloudwatch_log_group.cover.name
-    region                              = var.aws_default_region
+    region                              = var.aws_region
     log_stream_prefix                   = local.app_name_and_env
     LOG_LEVEL                           = var.log_level
     DISABLE_TLS                         = var.disable_tls

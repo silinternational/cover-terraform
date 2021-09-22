@@ -38,8 +38,8 @@
         "value": "${HOST}"
       },
       {
-        "name": "AWS_DEFAULT_REGION",
-        "value": "${AWS_DEFAULT_REGION}"
+        "name": "AWS_REGION",
+        "value": "${AWS_REGION}"
       },
       {
         "name": "AWS_S3_BUCKET",
