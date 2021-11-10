@@ -205,6 +205,9 @@ data "template_file" "task_def_api" {
     ROLLBAR_TOKEN                       = var.rollbar_token
     SESSION_SECRET                      = var.session_secret
     UI_URL                              = var.ui_url
+    SUPPORT_EMAIL                       = var.support_email
+    DYNAMO_DB_TABLE                     = var.dynamo_db_table
+    CLOUDFLARE_TOKEN                    = var.cloudflare_token
   }
 }
 
