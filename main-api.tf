@@ -132,7 +132,7 @@ resource "aws_iam_user_policy" "cover" {
         "dynamodb:Scan",
         "dynamodb:UpdateItem"
       ],
-      "Resource": "arn:aws:dynamodb:::table/CertMagic"
+      "Resource": "arn:aws:dynamodb:*:*:table/CertMagic"
     }
   ]
 }
