@@ -78,6 +78,14 @@
         "value": "${CERT_DOMAIN_NAME}"
       },
       {
+        "name": "CLOUDFLARE_TOKEN",
+        "value": "${CLOUDFLARE_TOKEN}"
+      },
+      {
+        "name": "DYNAMO_DB_TABLE",
+        "value": "${DYNAMO_DB_TABLE}"
+      },
+      {
         "name": "API_BASE_URL",
         "value": "${API_BASE_URL}"
       },
@@ -148,6 +156,10 @@
       {
         "name": "UIURL",
         "value": "${UI_URL}"
+      },
+      {
+        "name": "SUPPORT_EMAIL",
+        "value": "${SUPPORT_EMAIL}"
       }
     ],
     "ulimits": null,
