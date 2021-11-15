@@ -160,6 +160,18 @@
       {
         "name": "SUPPORT_EMAIL",
         "value": "${SUPPORT_EMAIL}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_URL",
+        "value": "${HOUSEHOLD_ID_LOOKUP_URL}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_USERNAME",
+        "value": "${HOUSEHOLD_ID_LOOKUP_USERNAME}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_PASSWORD",
+        "value": "${HOUSEHOLD_ID_LOOKUP_PASSWORD}"
       }
     ],
     "ulimits": null,
