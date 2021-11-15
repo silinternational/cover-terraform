@@ -162,3 +162,12 @@ variable "ui_url" {
 
 variable "support_email" {
 }
+
+variable "household_id_lookup_url" {
+}
+
+variable "household_id_lookup_username" {
+}
+
+variable "household_id_lookup_password" {
+}
