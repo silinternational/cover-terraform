@@ -7,7 +7,7 @@ output "db_password" {
 }
 
 output "ui_url" {
-  value = "https://${var.subdomain_ui}.${var.cloudflare_domain}"
+  value = var.ui_url
 }
 
 output "api_url" {
