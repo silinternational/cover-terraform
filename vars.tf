@@ -171,3 +171,21 @@ variable "household_id_lookup_username" {
 
 variable "household_id_lookup_password" {
 }
+
+variable "user_welcome_email_intro" {
+  description = "Comment about transition from old system to new system with links"
+  type        = string
+  default     = ""
+}
+
+variable "user_welcome_email_preview_text" {
+  description = "Comment about transition from old system to new system without links"
+  type        = string
+  default     = ""
+}
+
+variable "user_welcome_email_ending" {
+  description = "Comment about new contact information"
+  type        = string
+  default     = ""
+}

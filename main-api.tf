@@ -211,6 +211,9 @@ data "template_file" "task_def_api" {
     HOUSEHOLD_ID_LOOKUP_URL             = var.household_id_lookup_url
     HOUSEHOLD_ID_LOOKUP_USERNAME        = var.household_id_lookup_username
     HOUSEHOLD_ID_LOOKUP_PASSWORD        = var.household_id_lookup_password
+    USER_WELCOME_EMAIL_INTRO            = var.user_welcome_email_intro
+    USER_WELCOME_EMAIL_PREVIEW_TEXT     = var.user_welcome_email_preview_text
+    USER_WELCOME_EMAIL_ENDING           = var.user_welcome_email_ending
   }
 }
 
