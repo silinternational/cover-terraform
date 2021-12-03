@@ -172,6 +172,18 @@
       {
         "name": "HOUSEHOLD_ID_LOOKUP_PASSWORD",
         "value": "${HOUSEHOLD_ID_LOOKUP_PASSWORD}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_INTRO",
+        "value": "${USER_WELCOME_EMAIL_INTRO}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_PREVIEW_TEXT",
+        "value": "${USER_WELCOME_EMAIL_PREVIEW_TEXT}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_ENDING",
+        "value": "${USER_WELCOME_EMAIL_ENDING}"
       }
     ],
     "ulimits": null,
