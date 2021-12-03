@@ -1,0 +1,210 @@
+[
+  {
+    "dnsSearchDomains": null,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${log_stream_prefix}"
+      }
+    },
+    "entryPoint": null,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "protocol": "tcp",
+        "containerPort": 3000
+      }
+    ],
+    "command": null,
+    "linuxParameters": null,
+    "cpu": ${cpu},
+    "environment": [
+      {
+        "name": "DATABASE_URL",
+        "value": "${DATABASE_URL}"
+      },
+      {
+        "name": "ADDR",
+        "value": "0.0.0.0"
+      },
+      {
+        "name": "PORT",
+        "value": "3000"
+      },
+      {
+        "name": "HOST",
+        "value": "${HOST}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${AWS_REGION}"
+      },
+      {
+        "name": "AWS_S3_BUCKET",
+        "value": "${AWS_S3_BUCKET}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "value": "${AWS_ACCESS_KEY_ID}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "value": "${AWS_SECRET_ACCESS_KEY}"
+      },
+      {
+        "name": "EMAIL_FROM_ADDRESS",
+        "value": "${EMAIL_FROM_ADDRESS}"
+      },
+      {
+        "name": "EMAIL_SERVICE",
+        "value": "${EMAIL_SERVICE}"
+      },
+      {
+        "name": "GO_ENV",
+        "value": "${GO_ENV}"
+      },
+      {
+        "name": "LOG_LEVEL",
+        "value": "${LOG_LEVEL}"
+      },
+      {
+        "name": "DISABLE_TLS",
+        "value": "${DISABLE_TLS}"
+      },
+      {
+        "name": "CERT_DOMAIN_NAME",
+        "value": "${CERT_DOMAIN_NAME}"
+      },
+      {
+        "name": "CLOUDFLARE_TOKEN",
+        "value": "${CLOUDFLARE_TOKEN}"
+      },
+      {
+        "name": "DYNAMO_DB_TABLE",
+        "value": "${DYNAMO_DB_TABLE}"
+      },
+      {
+        "name": "API_BASE_URL",
+        "value": "${API_BASE_URL}"
+      },
+      {
+        "name": "APP_NAME",
+        "value": "${APP_NAME}"
+      },
+      {
+        "name": "SAML_SP_ENTITY_ID",
+        "value": "${SAML_SP_ENTITY_ID}"
+      },
+      {
+        "name": "SAML_AUDIENCE_URI",
+        "value": "${SAML_SP_ENTITY_ID}"
+      },
+      {
+        "name": "SAML_IDP_ENTITY_ID",
+        "value": "${SAML_IDP_ENTITY_ID}"
+      },
+      {
+        "name": "SAML_IDP_CERT",
+        "value": "${SAML_IDP_CERT}"
+      },
+      {
+        "name": "SAML_SP_CERT",
+        "value": "${SAML_SP_CERT}"
+      },
+      {
+        "name": "SAML_SP_PRIVATE_KEY",
+        "value": "${SAML_SP_PRIVATE_KEY}"
+      },
+      {
+        "name": "SAML_ASSERTION_CONSUMER_SERVICE_URL",
+        "value": "${SAML_ASSERTION_CONSUMER_SERVICE_URL}"
+      },
+      {
+        "name": "SAML_SSO_URL",
+        "value": "${SAML_SSO_URL}"
+      },
+      {
+        "name": "SAML_SLO_URL",
+        "value": "${SAML_SLO_URL}"
+      },
+      {
+        "name": "SAML_CHECK_RESPONSE_SIGNING",
+        "value": "${SAML_CHECK_RESPONSE_SIGNING}"
+      },
+      {
+        "name": "SAML_SIGN_REQUEST",
+        "value": "${SAML_SIGN_REQUEST}"
+      },
+      {
+        "name": "SAML_REQUIRE_ENCRYPTED_ASSERTION",
+        "value": "${SAML_REQUIRE_ENCRYPTED_ASSERTION}"
+      },
+      {
+        "name": "ROLLBAR_SERVER_ROOT",
+        "value": "${ROLLBAR_SERVER_ROOT}"
+      },
+      {
+        "name": "ROLLBAR_TOKEN",
+        "value": "${ROLLBAR_TOKEN}"
+      },
+      {
+        "name": "SESSION_SECRET",
+        "value": "${SESSION_SECRET}"
+      },
+      {
+        "name": "UIURL",
+        "value": "${UI_URL}"
+      },
+      {
+        "name": "SUPPORT_EMAIL",
+        "value": "${SUPPORT_EMAIL}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_URL",
+        "value": "${HOUSEHOLD_ID_LOOKUP_URL}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_USERNAME",
+        "value": "${HOUSEHOLD_ID_LOOKUP_USERNAME}"
+      },
+      {
+        "name": "HOUSEHOLD_ID_LOOKUP_PASSWORD",
+        "value": "${HOUSEHOLD_ID_LOOKUP_PASSWORD}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_INTRO",
+        "value": "${USER_WELCOME_EMAIL_INTRO}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_PREVIEW_TEXT",
+        "value": "${USER_WELCOME_EMAIL_PREVIEW_TEXT}"
+      },
+      {
+        "name": "USER_WELCOME_EMAIL_ENDING",
+        "value": "${USER_WELCOME_EMAIL_ENDING}"
+      }
+    ],
+    "ulimits": null,
+    "dnsServers": null,
+    "mountPoints": [],
+    "workingDirectory": null,
+    "dockerSecurityOptions": null,
+    "memory": ${memory},
+    "memoryReservation": null,
+    "volumesFrom": [],
+    "image": "${docker_image}:${docker_tag}",
+    "disableNetworking": null,
+    "healthCheck": null,
+    "essential": true,
+    "links": null,
+    "hostname": null,
+    "extraHosts": null,
+    "user": null,
+    "readonlyRootFilesystem": null,
+    "dockerLabels": null,
+    "privileged": null,
+    "name": "buffalo"
+  }
+]
