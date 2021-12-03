@@ -24,6 +24,7 @@ resource "aws_alb_target_group" "tg" {
     "$1",
   )
   port                 = "3000"
+  priority             = "731"
   protocol             = var.disable_tls == "true" ? "HTTP" : "HTTPS"
   vpc_id               = data.terraform_remote_state.common.outputs.vpc_id
   deregistration_delay = "30"
