@@ -24,6 +24,7 @@ resource "aws_alb_target_group" "tg" {
     "$1",
   )
   port                 = "3000"
+  priority             = "731"
   protocol             = var.disable_tls == "true" ? "HTTP" : "HTTPS"
   vpc_id               = data.terraform_remote_state.common.outputs.vpc_id
   deregistration_delay = "30"
@@ -262,6 +263,7 @@ resource "aws_alb_target_group" "adminer" {
     "$1",
   )
   port                 = "8080"
+  priority             = "732"
   protocol             = "HTTP"
   vpc_id               = data.terraform_remote_state.common.outputs.vpc_id
   deregistration_delay = "30"
@@ -281,7 +283,7 @@ resource "aws_alb_target_group" "adminer" {
  */
 resource "aws_alb_listener_rule" "adminer" {
   listener_arn = data.terraform_remote_state.common.outputs.alb_https_listener_arn
-  priority     = "729"
+  priority     = "733"
 
   action {
     type             = "forward"
