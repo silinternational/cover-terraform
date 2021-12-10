@@ -208,6 +208,9 @@ data "template_file" "task_def_api" {
     SUPPORT_EMAIL                       = var.support_email
     DYNAMO_DB_TABLE                     = var.dynamo_db_table
     CLOUDFLARE_TOKEN                    = var.cloudflare_token
+    CLAIM_INCOME_ACCOUNT                = var.claim_income_account
+    EXPENSE_ACCOUNT                     = var.expense_account
+    FISCAL_START_MONTH                  = var.fiscal_start_month
     HOUSEHOLD_ID_LOOKUP_URL             = var.household_id_lookup_url
     HOUSEHOLD_ID_LOOKUP_USERNAME        = var.household_id_lookup_username
     HOUSEHOLD_ID_LOOKUP_PASSWORD        = var.household_id_lookup_password
