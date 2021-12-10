@@ -166,6 +166,14 @@
         "value": "${CLAIM_INCOME_ACCOUNT}"
       },
       {
+        "name": "EXPENSE_ACCOUNT",
+        "value": "${EXPENSE_ACCOUNT}"
+      },
+      {
+        "name": "FISCAL_START_MONTH",
+        "value": "${FISCAL_START_MONTH}"
+      },
+      {
         "name": "HOUSEHOLD_ID_LOOKUP_URL",
         "value": "${HOUSEHOLD_ID_LOOKUP_URL}"
       },

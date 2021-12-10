@@ -166,6 +166,13 @@ variable "support_email" {
 variable "claim_income_account" {
 }
 
+variable "expense_account" {
+}
+
+variable "fiscal_start_month" {
+  default = 10
+}
+
 variable "household_id_lookup_url" {
 }
 
