@@ -163,6 +163,9 @@ variable "ui_url" {
 variable "support_email" {
 }
 
+variable "claim_income_account" {
+}
+
 variable "household_id_lookup_url" {
 }
 

@@ -162,6 +162,10 @@
         "value": "${SUPPORT_EMAIL}"
       },
       {
+        "name": "CLAIM_INCOME_ACCOUNT",
+        "value": "${CLAIM_INCOME_ACCOUNT}"
+      },
+      {
         "name": "HOUSEHOLD_ID_LOOKUP_URL",
         "value": "${HOUSEHOLD_ID_LOOKUP_URL}"
       },
