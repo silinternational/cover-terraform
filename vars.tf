@@ -114,6 +114,11 @@ variable "app_name_user" {
   default     = "Cover"
 }
 
+variable "app_name_long" {
+  description = "Longer app name used for end-user presentation, e.g. email from name"
+  default     = "Cover by SIL"
+}
+
 variable "saml_sp_entity_id" {
 }
 
