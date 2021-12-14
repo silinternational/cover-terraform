@@ -190,6 +190,7 @@ data "template_file" "task_def_api" {
     CERT_DOMAIN_NAME                    = "${var.subdomain_api}.${var.cloudflare_domain}"
     API_BASE_URL                        = "https://${var.subdomain_api}.${var.cloudflare_domain}"
     APP_NAME                            = var.app_name_user
+    APP_NAME_LONG                       = var.app_name_long
     SAML_SP_ENTITY_ID                   = var.saml_sp_entity_id
     SAML_IDP_ENTITY_ID                  = var.saml_idp_entity_id
     SAML_IDP_CERT                       = var.saml_idp_cert
