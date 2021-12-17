@@ -168,6 +168,11 @@ variable "ui_url" {
 variable "support_email" {
 }
 
+variable "sandbox_email_address" {
+  description = "email address override to use as the override in a non-production environment"
+  default     = ""
+}
+
 variable "claim_income_account" {
 }
 
