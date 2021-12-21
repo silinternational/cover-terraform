@@ -162,6 +162,10 @@
         "value": "${SUPPORT_EMAIL}"
       },
       {
+        "name": "SANDBOX_EMAIL_ADDRESS",
+        "value": "${SANDBOX_EMAIL_ADDRESS}"
+      },
+      {
         "name": "CLAIM_INCOME_ACCOUNT",
         "value": "${CLAIM_INCOME_ACCOUNT}"
       },
