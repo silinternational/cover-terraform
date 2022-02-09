@@ -207,6 +207,7 @@ data "template_file" "task_def_api" {
     SESSION_SECRET                      = var.session_secret
     UI_URL                              = var.ui_url
     SUPPORT_EMAIL                       = var.support_email
+    SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
     DYNAMO_DB_TABLE                     = var.dynamo_db_table
     CLOUDFLARE_TOKEN                    = var.cloudflare_token
     CLAIM_INCOME_ACCOUNT                = var.claim_income_account
