@@ -259,13 +259,15 @@ data "cloudflare_zones" "domain" {
 
 module "adminer" {
   source                 = "github.com/silinternational/terraform-aws-adminer?ref=main"
+  adminer_default_server = module.rds.address
   app_name               = var.app_name
   app_env                = local.app_env
+  cpu                    = 128
   vpc_id                 = data.terraform_remote_state.common.outputs.vpc_id
   alb_https_listener_arn = data.terraform_remote_state.common.outputs.alb_https_listener_arn
+  alb_listener_priority  = 733
   subdomain              = "${var.subdomain_api}-adminer"
   cloudflare_domain      = var.cloudflare_domain
-  rds_address            = module.rds.address
   ecs_cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   ecsServiceRole_arn     = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
   alb_dns_name           = data.terraform_remote_state.common.outputs.alb_dns_name
