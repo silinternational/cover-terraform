@@ -260,6 +260,8 @@ data "cloudflare_zones" "domain" {
 module "adminer" {
   source                 = "github.com/silinternational/terraform-aws-adminer?ref=main"
   adminer_default_server = module.rds.address
+  adminer_design         = var.adminer_design
+  adminer_plugins        = var.adminer_plugins
   app_name               = var.app_name
   app_env                = local.app_env
   cpu                    = 128
