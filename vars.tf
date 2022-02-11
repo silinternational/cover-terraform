@@ -30,7 +30,7 @@ variable "adminer_design" {
 
 variable "adminer_plugins" {
   default     = ""
-  description = "add Adminer plugins, see https://www.adminer.org/en/plugins/ for details"
+  description = "add Adminer plugins, see https://hub.docker.com/_/adminer/ for details"
 }
 
 variable "aws_access_key" {

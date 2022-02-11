@@ -258,7 +258,8 @@ data "cloudflare_zones" "domain" {
 }
 
 module "adminer" {
-  source                 = "github.com/silinternational/terraform-aws-adminer?ref=main"
+  source                 = "silinternational/adminer/aws"
+  version                = "1.0.0"
   adminer_default_server = module.rds.address
   adminer_design         = var.adminer_design
   adminer_plugins        = var.adminer_plugins
