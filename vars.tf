@@ -23,6 +23,16 @@ variable "enable_adminer" {
   description = "1 = enable adminer, 0 = disable adminer"
 }
 
+variable "adminer_design" {
+  default     = ""
+  description = "specify Adminer theme, see https://adminer.org/en#extras for options"
+}
+
+variable "adminer_plugins" {
+  default     = ""
+  description = "add Adminer plugins, see https://www.adminer.org/en/plugins/ for details"
+}
+
 variable "aws_access_key" {
 }
 
