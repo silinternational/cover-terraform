@@ -94,6 +94,10 @@
         "value": "${APP_NAME}"
       },
       {
+        "name": "APP_NAME_LONG",
+        "value": "${APP_NAME_LONG}"
+      },
+      {
         "name": "SAML_SP_ENTITY_ID",
         "value": "${SAML_SP_ENTITY_ID}"
       },
