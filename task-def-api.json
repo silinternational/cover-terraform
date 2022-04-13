@@ -162,6 +162,14 @@
         "value": "${SUPPORT_EMAIL}"
       },
       {
+        "name": "SUPPORT_URL",
+        "value": "${SUPPORT_URL}"
+      },
+      {
+        "name": "FAQ_URL",
+        "value": "${FAQ_URL}"
+      },
+      {
         "name": "SANDBOX_EMAIL_ADDRESS",
         "value": "${SANDBOX_EMAIL_ADDRESS}"
       },

@@ -206,6 +206,8 @@ locals {
       SESSION_SECRET                      = var.session_secret
       UI_URL                              = var.ui_url
       SUPPORT_EMAIL                       = var.support_email
+      SUPPORT_URL                         = var.support_url
+      FAQ_URL                             = var.faq_url
       SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
       DYNAMO_DB_TABLE                     = var.dynamo_db_table
       CLOUDFLARE_TOKEN                    = var.cloudflare_token

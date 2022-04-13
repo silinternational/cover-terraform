@@ -178,6 +178,16 @@ variable "ui_url" {
 variable "support_email" {
 }
 
+variable "support_url" {
+  description = "URL for where users can request support"
+  default     = ""
+}
+
+variable "faq_url" {
+  description = "URL of the FAQ page"
+  default     = ""
+}
+
 variable "sandbox_email_address" {
   description = "email address override to use as the override in a non-production environment"
   default     = ""
