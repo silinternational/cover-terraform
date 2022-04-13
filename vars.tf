@@ -179,12 +179,12 @@ variable "support_email" {
 }
 
 variable "support_url" {
-  description = "url for where users can request support"
+  description = "URL for where users can request support"
   default     = ""
 }
 
 variable "faq_url" {
-  description = "url of the faq page"
+  description = "URL of the FAQ page"
   default     = ""
 }
 
