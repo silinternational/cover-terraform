@@ -24,3 +24,23 @@ output "aws_ses_secret_access_key" {
   value       = aws_iam_access_key.attachments.secret
   sensitive   = true
 }
+
+output "bkup_key_id" {
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_id : "backup disabled"
+}
+
+output "bkup_key_arn" {
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_arn : "backup disabled"
+}
+
+output "bkup_vault_arn" {
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_vault_arn : "backup disabled"
+}
+
+output "bkup_cron_schedule" {
+  value = var.backup_cron_schedule
+}
+
+output "backup_notification_events" {
+  value = var.backup_notification_events
+}
