@@ -34,11 +34,11 @@ output "bkup_key_id" {
 }
 
 output "bkup_key_arn" {
-  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_arn : "backup disabled"
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_arn : "to enable backup, set enable_db_backup to true"
 }
 
 output "bkup_vault_arn" {
-  value = var.enable_db_backup ? module.backup_rds[0].bkup_vault_arn : "backup disabled"
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_vault_arn : ""
 }
 
 output "bkup_cron_schedule" {
@@ -46,5 +46,5 @@ output "bkup_cron_schedule" {
 }
 
 output "backup_notification_events" {
-  value = var.enable_db_backup ? string(var.backup_notification_events) : ""
+  value = var.enable_db_backup ? join( ", ", var.backup_notification_events) : ""
 }
