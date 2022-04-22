@@ -32,7 +32,7 @@ output "aws_ses_secret_access_key" {
 
 
 output "bkup_key_arn" {
-  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_arn : ""backup disabled"
+  value = var.enable_db_backup ? module.backup_rds[0].bkup_key_arn : "backup disabled"
 }
 
 output "bkup_key_id" {
