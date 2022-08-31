@@ -287,7 +287,7 @@ module "backup_rds" {
   count = var.enable_db_backup ? 1 : 0
   source = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=5.1.0"
   app_name = var.app_name
-  app_env = var.go_env
+  app_env = local.app_env
   aws_access_key = var.aws_access_key
   aws_secret_key = var.aws_secret_key
   source_arns = [module.rds.arn]
