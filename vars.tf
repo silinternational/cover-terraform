@@ -67,6 +67,11 @@ variable "rollbar_token" {
   default     = ""
 }
 
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging. Omit to disable Sentry logging."
+  default     = ""
+}
+
 variable "tf_remote_common_organization" {
 }
 

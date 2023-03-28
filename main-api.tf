@@ -203,6 +203,7 @@ locals {
       SAML_REQUIRE_ENCRYPTED_ASSERTION    = var.saml_require_encrypted_assertion
       ROLLBAR_SERVER_ROOT                 = var.rollbar_server_root
       ROLLBAR_TOKEN                       = var.rollbar_token
+      SENTRY_DSN                          = var.sentry_dsn
       SESSION_SECRET                      = var.session_secret
       UI_URL                              = var.ui_url
       SUPPORT_EMAIL                       = var.support_email
