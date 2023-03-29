@@ -154,6 +154,10 @@
         "value": "${ROLLBAR_TOKEN}"
       },
       {
+        "name": "SENTRY_DSN",
+        "value": "${SENTRY_DSN}"
+      },
+      {
         "name": "SESSION_SECRET",
         "value": "${SESSION_SECRET}"
       },
