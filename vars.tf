@@ -49,10 +49,6 @@ variable "cloudflare_token" {
 variable "cloudflare_domain" {
 }
 
-variable "dynamo_db_table" {
-  default = "CertMagic"
-}
-
 variable "email_from_address" {
 }
 

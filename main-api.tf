@@ -94,7 +94,7 @@ module "rds" {
 }
 
 /*
- * Create user to interact with S3, SES, and DynamoDB (for CertMagic)
+ * Create user to interact with S3 and SES
  */
 resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
@@ -107,37 +107,21 @@ resource "aws_iam_access_key" "attachments" {
 resource "aws_iam_user_policy" "cover" {
   user = aws_iam_user.cover.name
 
-  policy = <<EOM
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = jsonencode(
     {
-      "Sid": "SendEmail",
-      "Effect": "Allow",
-      "Action":[
-        "ses:SendEmail",
-        "ses:SendRawEmail"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "DynamoDB",
-      "Effect": "Allow",
-      "Action":[
-        "dynamodb:ConditionCheck",
-        "dynamodb:DeleteItem",
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:UpdateItem"
-      ],
-      "Resource": "arn:aws:dynamodb:*:*:table/CertMagic"
-    }
-  ]
-}
-EOM
-
+      Version = "2012-10-17",
+      Statement = [
+        {
+          Sid    = "SendEmail",
+          Effect = "Allow",
+          Action = [
+            "ses:SendEmail",
+            "ses:SendRawEmail",
+          ],
+          Resource = "*",
+        }
+      ]
+  })
 }
 
 locals {
@@ -210,7 +194,6 @@ locals {
       SUPPORT_URL                         = var.support_url
       FAQ_URL                             = var.faq_url
       SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
-      DYNAMO_DB_TABLE                     = var.dynamo_db_table
       CLOUDFLARE_TOKEN                    = var.cloudflare_token
       CLAIM_INCOME_ACCOUNT                = var.claim_income_account
       EXPENSE_ACCOUNT                     = var.expense_account
