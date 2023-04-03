@@ -82,6 +82,7 @@ module "rds" {
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
+  engine_version      = "13"
   instance_class      = var.db_instance_class
   storage_encrypted   = var.db_storage_encrypted
   db_name             = var.db_database
