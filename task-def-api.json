@@ -82,10 +82,6 @@
         "value": "${CLOUDFLARE_TOKEN}"
       },
       {
-        "name": "DYNAMO_DB_TABLE",
-        "value": "${DYNAMO_DB_TABLE}"
-      },
-      {
         "name": "API_BASE_URL",
         "value": "${API_BASE_URL}"
       },
