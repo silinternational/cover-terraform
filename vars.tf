@@ -246,3 +246,13 @@ variable "backup_notification_events" {
   type        = list(string)
   default     = ["BACKUP_JOB_STARTED", "BACKUP_JOB_COMPLETED", "BACKUP_JOB_FAILED", "RESTORE_JOB_COMPLETED"]
 }
+
+variable "customer" {
+  description = "Customer name, used in AWS tags"
+  type        = string
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
