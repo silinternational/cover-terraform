@@ -1,6 +1,8 @@
 locals {
   app_name_and_env = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
   app_env          = data.terraform_remote_state.common.outputs.app_env
+  app_env_long     = local.app_env == "stg" ? "staging" : "production"
+  name_tag_suffix  = "${var.app_name}-${var.customer}-${local.app_env_long}"
 }
 
 /*
@@ -33,6 +35,10 @@ resource "aws_alb_target_group" "tg" {
     matcher  = "204"
     protocol = var.disable_tls == "true" ? "HTTP" : "HTTPS"
   }
+
+  tags = {
+    Name = "alb_target_group-${local.name_tag_suffix}"
+  }
 }
 
 /*
@@ -52,6 +58,10 @@ resource "aws_alb_listener_rule" "tg" {
       values = ["${var.subdomain_api}.${var.cloudflare_domain}"]
     }
   }
+
+  tags = {
+    Name = "alb_listener_rule-${local.name_tag_suffix}"
+  }
 }
 
 /*
@@ -62,8 +72,7 @@ resource "aws_cloudwatch_log_group" "cover" {
   retention_in_days = 14
 
   tags = {
-    app_name = var.app_name
-    app_env  = local.app_env
+    Name = "cloudwatch_log_group-${local.name_tag_suffix}"
   }
 }
 
@@ -99,6 +108,10 @@ module "rds" {
  */
 resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
+
+  tags = {
+    Name = "iam_user-${local.name_tag_suffix}"
+  }
 }
 
 resource "aws_iam_access_key" "attachments" {
@@ -140,9 +153,7 @@ resource "aws_s3_bucket" "attachments" {
   policy = local.bucket_policy
 
   tags = {
-    Name     = var.aws_s3_bucket
-    app_name = var.app_name
-    app_env  = local.app_env
+    Name = "s3_bucket-${local.name_tag_suffix}"
   }
 }
 
