@@ -5,7 +5,6 @@ provider "aws" {
 
   default_tags {
     tags = merge({
-      file       = path.module
       managed_by = "terraform"
       workspace  = terraform.workspace
     }, var.tags)
