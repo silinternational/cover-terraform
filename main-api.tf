@@ -37,7 +37,7 @@ resource "aws_alb_target_group" "tg" {
   }
 
   tags = {
-    Name = "alb_target_group-${local.name_tag_suffix}"
+    name = "alb_target_group-${local.name_tag_suffix}"
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_alb_listener_rule" "tg" {
   }
 
   tags = {
-    Name = "alb_listener_rule-${local.name_tag_suffix}"
+    name = "alb_listener_rule-${local.name_tag_suffix}"
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_cloudwatch_log_group" "cover" {
   retention_in_days = 14
 
   tags = {
-    Name = "cloudwatch_log_group-${local.name_tag_suffix}"
+    name = "cloudwatch_log_group-${local.name_tag_suffix}"
   }
 }
 
@@ -110,7 +110,7 @@ resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
 
   tags = {
-    Name = "iam_user-${local.name_tag_suffix}"
+    name = "iam_user-${local.name_tag_suffix}"
   }
 }
 
@@ -153,7 +153,7 @@ resource "aws_s3_bucket" "attachments" {
   policy = local.bucket_policy
 
   tags = {
-    Name = "s3_bucket-${local.name_tag_suffix}"
+    name = "s3_bucket-${local.name_tag_suffix}"
   }
 }
 
