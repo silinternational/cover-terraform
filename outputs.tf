@@ -15,12 +15,12 @@ output "api_url" {
 }
 
 output "aws_ses_access_key_id" {
-  description = "access key for SES (internal and Auth0), S3 (attachments), and DynamoDB (CertMagic)"
+  description = "access key for SES (internal and Auth0) and S3 (attachments)"
   value       = aws_iam_access_key.attachments.id
 }
 
 output "aws_ses_secret_access_key" {
-  description = "access key secret for SES (internal and Auth0), S3 (attachments), and DynamoDB (CertMagic)"
+  description = "access key secret for SES (internal and Auth0) and S3 (attachments)"
   value       = aws_iam_access_key.attachments.secret
   sensitive   = true
 }
@@ -48,5 +48,5 @@ output "bkup_cron_schedule" {
 }
 
 output "backup_notification_events" {
-  value = var.enable_db_backup ? join( ", ", var.backup_notification_events) : ""
+  value = var.enable_db_backup ? join(", ", var.backup_notification_events) : ""
 }

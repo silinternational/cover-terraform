@@ -49,10 +49,6 @@ variable "cloudflare_token" {
 variable "cloudflare_domain" {
 }
 
-variable "dynamo_db_table" {
-  default = "CertMagic"
-}
-
 variable "email_from_address" {
 }
 
@@ -64,6 +60,11 @@ variable "go_env" {
 
 variable "rollbar_token" {
   description = "Rollbar API token. Omit to disable rollbar logging."
+  default     = ""
+}
+
+variable "sentry_dsn" {
+  description = "Sentry DSN for error logging. Omit to disable Sentry logging."
   default     = ""
 }
 
@@ -232,16 +233,26 @@ variable "user_welcome_email_ending" {
 
 variable "enable_db_backup" {
   description = "Whether to have a database backup or not"
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "backup_cron_schedule" {
-  default = "21 1 * * ? *"		# Every day at 01:21 UTC
+  default = "21 1 * * ? *" # Every day at 01:21 UTC
 }
 
 variable "backup_notification_events" {
   description = "The names of the backup events that should trigger an email notification"
-  type = list(string)
-  default = ["BACKUP_JOB_STARTED", "BACKUP_JOB_COMPLETED", "BACKUP_JOB_FAILED", "RESTORE_JOB_COMPLETED"]
+  type        = list(string)
+  default     = ["BACKUP_JOB_STARTED", "BACKUP_JOB_COMPLETED", "BACKUP_JOB_FAILED", "RESTORE_JOB_COMPLETED"]
+}
+
+variable "customer" {
+  description = "Customer name, used in AWS tags"
+  type        = string
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
 }

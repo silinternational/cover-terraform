@@ -1,6 +1,8 @@
 locals {
   app_name_and_env = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
   app_env          = data.terraform_remote_state.common.outputs.app_env
+  app_environment  = data.terraform_remote_state.common.outputs.app_environment
+  name_tag_suffix  = "${var.app_name}-${var.customer}-${local.app_environment}"
 }
 
 /*
@@ -33,6 +35,10 @@ resource "aws_alb_target_group" "tg" {
     matcher  = "204"
     protocol = var.disable_tls == "true" ? "HTTP" : "HTTPS"
   }
+
+  tags = {
+    name = "alb_target_group-${local.name_tag_suffix}"
+  }
 }
 
 /*
@@ -52,6 +58,10 @@ resource "aws_alb_listener_rule" "tg" {
       values = ["${var.subdomain_api}.${var.cloudflare_domain}"]
     }
   }
+
+  tags = {
+    name = "alb_listener_rule-${local.name_tag_suffix}"
+  }
 }
 
 /*
@@ -62,8 +72,7 @@ resource "aws_cloudwatch_log_group" "cover" {
   retention_in_days = 14
 
   tags = {
-    app_name = var.app_name
-    app_env  = local.app_env
+    name = "cloudwatch_log_group-${local.name_tag_suffix}"
   }
 }
 
@@ -82,6 +91,7 @@ module "rds" {
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
+  engine_version      = "13"
   instance_class      = var.db_instance_class
   storage_encrypted   = var.db_storage_encrypted
   db_name             = var.db_database
@@ -94,10 +104,14 @@ module "rds" {
 }
 
 /*
- * Create user to interact with S3, SES, and DynamoDB (for CertMagic)
+ * Create user to interact with S3 and SES
  */
 resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
+
+  tags = {
+    name = "iam_user-${local.name_tag_suffix}"
+  }
 }
 
 resource "aws_iam_access_key" "attachments" {
@@ -107,37 +121,21 @@ resource "aws_iam_access_key" "attachments" {
 resource "aws_iam_user_policy" "cover" {
   user = aws_iam_user.cover.name
 
-  policy = <<EOM
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  policy = jsonencode(
     {
-      "Sid": "SendEmail",
-      "Effect": "Allow",
-      "Action":[
-        "ses:SendEmail",
-        "ses:SendRawEmail"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "DynamoDB",
-      "Effect": "Allow",
-      "Action":[
-        "dynamodb:ConditionCheck",
-        "dynamodb:DeleteItem",
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:UpdateItem"
-      ],
-      "Resource": "arn:aws:dynamodb:*:*:table/CertMagic"
-    }
-  ]
-}
-EOM
-
+      Version = "2012-10-17",
+      Statement = [
+        {
+          Sid    = "SendEmail",
+          Effect = "Allow",
+          Action = [
+            "ses:SendEmail",
+            "ses:SendRawEmail",
+          ],
+          Resource = "*",
+        }
+      ]
+  })
 }
 
 locals {
@@ -155,9 +153,7 @@ resource "aws_s3_bucket" "attachments" {
   policy = local.bucket_policy
 
   tags = {
-    Name     = var.aws_s3_bucket
-    app_name = var.app_name
-    app_env  = local.app_env
+    name = "s3_bucket-${local.name_tag_suffix}"
   }
 }
 
@@ -203,13 +199,13 @@ locals {
       SAML_REQUIRE_ENCRYPTED_ASSERTION    = var.saml_require_encrypted_assertion
       ROLLBAR_SERVER_ROOT                 = var.rollbar_server_root
       ROLLBAR_TOKEN                       = var.rollbar_token
+      SENTRY_DSN                          = var.sentry_dsn
       SESSION_SECRET                      = var.session_secret
       UI_URL                              = var.ui_url
       SUPPORT_EMAIL                       = var.support_email
       SUPPORT_URL                         = var.support_url
       FAQ_URL                             = var.faq_url
       SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
-      DYNAMO_DB_TABLE                     = var.dynamo_db_table
       CLOUDFLARE_TOKEN                    = var.cloudflare_token
       CLAIM_INCOME_ACCOUNT                = var.claim_income_account
       EXPENSE_ACCOUNT                     = var.expense_account
@@ -284,13 +280,13 @@ module "adminer" {
  * Optionally create an AWS backup of the rds instance
  */
 module "backup_rds" {
-  count = var.enable_db_backup ? 1 : 0
-  source = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=5.1.0"
-  app_name = var.app_name
-  app_env = local.app_env
-  aws_access_key = var.aws_access_key
-  aws_secret_key = var.aws_secret_key
-  source_arns = [module.rds.arn]
+  count                = var.enable_db_backup ? 1 : 0
+  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=5.1.0"
+  app_name             = var.app_name
+  app_env              = local.app_env
+  aws_access_key       = var.aws_access_key
+  aws_secret_key       = var.aws_secret_key
+  source_arns          = [module.rds.arn]
   backup_cron_schedule = var.backup_cron_schedule
-  notification_events = var.backup_notification_events
+  notification_events  = var.backup_notification_events
 }
