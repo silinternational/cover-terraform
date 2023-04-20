@@ -74,10 +74,6 @@
         "value": "${DISABLE_TLS}"
       },
       {
-        "name": "CERT_DOMAIN_NAME",
-        "value": "${CERT_DOMAIN_NAME}"
-      },
-      {
         "name": "CLOUDFLARE_TOKEN",
         "value": "${CLOUDFLARE_TOKEN}"
       },

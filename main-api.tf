@@ -182,7 +182,6 @@ locals {
       log_stream_prefix                   = local.app_name_and_env
       LOG_LEVEL                           = var.log_level
       DISABLE_TLS                         = var.disable_tls
-      CERT_DOMAIN_NAME                    = "${var.subdomain_api}.${var.cloudflare_domain}"
       API_BASE_URL                        = "https://${var.subdomain_api}.${var.cloudflare_domain}"
       APP_NAME                            = var.app_name_user
       APP_NAME_LONG                       = var.app_name_long
