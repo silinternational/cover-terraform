@@ -20,11 +20,7 @@ module "ecr" {
  * Create target group for ALB
  */
 resource "aws_alb_target_group" "tg" {
-  name = replace(
-    "tg-${local.app_name_and_env}",
-    "/(.{0,32})(.*)/",
-    "$1",
-  )
+  name                 = substr("tg-${local.app_name_and_env}", 0, 32)
   port                 = "3000"
   protocol             = var.disable_tls == "true" ? "HTTP" : "HTTPS"
   vpc_id               = data.terraform_remote_state.common.outputs.vpc_id
