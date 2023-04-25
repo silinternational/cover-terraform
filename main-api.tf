@@ -145,12 +145,20 @@ locals {
 
 resource "aws_s3_bucket" "attachments" {
   bucket = var.aws_s3_bucket
-  acl    = "private"
-  policy = local.bucket_policy
 
   tags = {
     name = "s3_bucket-${local.name_tag_suffix}"
   }
+}
+
+resource "aws_s3_bucket_acl" "attachments" {
+  bucket = aws_s3_bucket.attachments.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_policy" "attachments" {
+  bucket = aws_s3_bucket.attachments.id
+  policy = local.bucket_policy
 }
 
 /*
