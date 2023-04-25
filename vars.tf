@@ -247,6 +247,11 @@ variable "backup_notification_events" {
   default     = ["BACKUP_JOB_STARTED", "BACKUP_JOB_COMPLETED", "BACKUP_JOB_FAILED", "RESTORE_JOB_COMPLETED"]
 }
 
+variable "backup_sns_topic_arn" {
+  description = "The ARN of the SNS topic for database backup process notifications"
+  type        = string
+}
+
 variable "customer" {
   description = "Customer name, used in AWS tags"
   type        = string

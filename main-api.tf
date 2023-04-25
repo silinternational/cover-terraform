@@ -292,4 +292,5 @@ module "backup_rds" {
   source_arns          = [module.rds.arn]
   backup_cron_schedule = var.backup_cron_schedule
   notification_events  = var.backup_notification_events
+  sns_topic_arn        = var.sns_topic_arn
 }
