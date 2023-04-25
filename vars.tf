@@ -250,6 +250,7 @@ variable "backup_notification_events" {
 variable "backup_sns_topic_arn" {
   description = "The ARN of the SNS topic for database backup process notifications"
   type        = string
+  default     = ""
 }
 
 variable "customer" {
