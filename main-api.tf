@@ -9,7 +9,7 @@ locals {
  * Create ECR repo
  */
 module "ecr" {
-  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=3.6.2"
+  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.0.0"
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
@@ -83,7 +83,7 @@ resource "random_id" "db_password" {
  * Create new rds instance
  */
 module "rds" {
-  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=3.6.2"
+  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.0.0"
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
@@ -145,12 +145,20 @@ locals {
 
 resource "aws_s3_bucket" "attachments" {
   bucket = var.aws_s3_bucket
-  acl    = "private"
-  policy = local.bucket_policy
 
   tags = {
     name = "s3_bucket-${local.name_tag_suffix}"
   }
+}
+
+resource "aws_s3_bucket_acl" "attachments" {
+  bucket = aws_s3_bucket.attachments.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_policy" "attachments" {
+  bucket = aws_s3_bucket.attachments.id
+  policy = local.bucket_policy
 }
 
 /*
@@ -219,7 +227,7 @@ locals {
  * Create new ecs service
  */
 module "ecsapi" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=3.6.2"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.0"
   cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   service_name       = "${var.app_name}-api"
   service_env        = local.app_env
@@ -252,7 +260,7 @@ data "cloudflare_zones" "domain" {
 
 module "adminer" {
   source                 = "silinternational/adminer/aws"
-  version                = "1.0.0"
+  version                = "1.0.2"
   adminer_default_server = module.rds.address
   adminer_design         = var.adminer_design
   adminer_plugins        = var.adminer_plugins
@@ -276,7 +284,7 @@ module "adminer" {
  */
 module "backup_rds" {
   count                = var.enable_db_backup ? 1 : 0
-  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=5.1.0"
+  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=8.0.0"
   app_name             = var.app_name
   app_env              = local.app_env
   aws_access_key       = var.aws_access_key
@@ -284,4 +292,5 @@ module "backup_rds" {
   source_arns          = [module.rds.arn]
   backup_cron_schedule = var.backup_cron_schedule
   notification_events  = var.backup_notification_events
+  sns_topic_arn        = var.backup_sns_topic_arn
 }
