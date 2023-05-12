@@ -138,14 +138,6 @@
         "value": "${SAML_REQUIRE_ENCRYPTED_ASSERTION}"
       },
       {
-        "name": "ROLLBAR_SERVER_ROOT",
-        "value": "${ROLLBAR_SERVER_ROOT}"
-      },
-      {
-        "name": "ROLLBAR_TOKEN",
-        "value": "${ROLLBAR_TOKEN}"
-      },
-      {
         "name": "SENTRY_DSN",
         "value": "${SENTRY_DSN}"
       },
