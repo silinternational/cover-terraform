@@ -58,11 +58,6 @@ variable "email_service" {
 variable "go_env" {
 }
 
-variable "rollbar_token" {
-  description = "Rollbar API token. Omit to disable rollbar logging."
-  default     = ""
-}
-
 variable "sentry_dsn" {
   description = "Sentry DSN for error logging. Omit to disable Sentry logging."
   default     = ""
@@ -164,10 +159,6 @@ variable "saml_sign_request" {
 
 variable "saml_require_encrypted_assertion" {
   default = "true"
-}
-
-variable "rollbar_server_root" {
-  default = "github.com/silinternational/cover-api"
 }
 
 variable "session_secret" {
