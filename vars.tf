@@ -253,3 +253,9 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "policy_max_coverage" {
+  description = "The maximum coverage amount for a single policy, in US Dollars."
+  type        = number
+  default     = 50000
+}
