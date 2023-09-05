@@ -200,6 +200,10 @@
       {
         "name": "USER_WELCOME_EMAIL_ENDING",
         "value": "${USER_WELCOME_EMAIL_ENDING}"
+      },
+      {
+        "name": "POLICY_MAX_COVERAGE",
+        "value": "${POLICY_MAX_COVERAGE}"
       }
     ],
     "ulimits": null,

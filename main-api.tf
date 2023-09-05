@@ -217,6 +217,7 @@ locals {
       USER_WELCOME_EMAIL_INTRO            = var.user_welcome_email_intro
       USER_WELCOME_EMAIL_PREVIEW_TEXT     = var.user_welcome_email_preview_text
       USER_WELCOME_EMAIL_ENDING           = var.user_welcome_email_ending
+      POLICY_MAX_COVERAGE                 = var.policy_max_coverage
     }
   )
 }
