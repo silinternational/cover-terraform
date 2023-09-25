@@ -189,8 +189,8 @@ locals {
       HOST                                = "https://${var.subdomain_api}.${var.cloudflare_domain}"
       AWS_REGION                          = var.aws_region
       AWS_S3_BUCKET                       = var.aws_s3_bucket
-      AWS_ACCESS_KEY_ID                   = aws_iam_access_key.attachments.id
-      AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.attachments.secret
+      AWS_ACCESS_KEY_ID                   = aws_iam_access_key.cover.id
+      AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.cover.secret
       EMAIL_FROM_ADDRESS                  = var.email_from_address
       EMAIL_SERVICE                       = var.email_service
       log_group                           = aws_cloudwatch_log_group.cover.name
