@@ -9,7 +9,7 @@ locals {
  * Create ECR repo
  */
 module "ecr" {
-  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.0.0"
+  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.2"
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
@@ -83,7 +83,7 @@ resource "random_id" "db_password" {
  * Create new rds instance
  */
 module "rds" {
-  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.0.0"
+  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.6.2"
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
@@ -100,7 +100,7 @@ module "rds" {
 }
 
 /*
- * Create user to interact with S3 and SES
+ * Create user to interact with S3, SES, and SSM
  */
 resource "aws_iam_user" "cover" {
   name = local.app_name_and_env
@@ -110,7 +110,7 @@ resource "aws_iam_user" "cover" {
   }
 }
 
-resource "aws_iam_access_key" "attachments" {
+resource "aws_iam_access_key" "cover" {
   user = aws_iam_user.cover.name
 }
 
@@ -119,20 +119,32 @@ resource "aws_iam_user_policy" "cover" {
 
   policy = jsonencode(
     {
-      Version = "2012-10-17",
+      Version = "2012-10-17"
       Statement = [
         {
-          Sid    = "SendEmail",
-          Effect = "Allow",
+          Sid    = "SendEmail"
+          Effect = "Allow"
           Action = [
             "ses:SendEmail",
             "ses:SendRawEmail",
-          ],
-          Resource = "*",
-        }
+          ]
+          Resource = "*"
+        },
+        {
+          Sid    = "SSMParameterStore"
+          Effect = "Allow"
+          Action = [
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter",
+          ]
+          Resource = "arn:aws:ssm:*:${data.aws_caller_identity.this.account_id}:parameter/${var.app_name}/*"
+        },
       ]
   })
 }
+
+data "aws_caller_identity" "this" {}
 
 locals {
   bucket_policy = templatefile("${path.module}/attachment-bucket-policy.json",
@@ -177,8 +189,8 @@ locals {
       HOST                                = "https://${var.subdomain_api}.${var.cloudflare_domain}"
       AWS_REGION                          = var.aws_region
       AWS_S3_BUCKET                       = var.aws_s3_bucket
-      AWS_ACCESS_KEY_ID                   = aws_iam_access_key.attachments.id
-      AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.attachments.secret
+      AWS_ACCESS_KEY_ID                   = aws_iam_access_key.cover.id
+      AWS_SECRET_ACCESS_KEY               = aws_iam_access_key.cover.secret
       EMAIL_FROM_ADDRESS                  = var.email_from_address
       EMAIL_SERVICE                       = var.email_service
       log_group                           = aws_cloudwatch_log_group.cover.name
@@ -226,7 +238,7 @@ locals {
  * Create new ecs service
  */
 module "ecsapi" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.0.0"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.2"
   cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   service_name       = "${var.app_name}-api"
   service_env        = local.app_env
@@ -283,7 +295,7 @@ module "adminer" {
  */
 module "backup_rds" {
   count                = var.enable_db_backup ? 1 : 0
-  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=8.0.0"
+  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=8.6.2"
   app_name             = var.app_name
   app_env              = local.app_env
   aws_access_key       = var.aws_access_key
