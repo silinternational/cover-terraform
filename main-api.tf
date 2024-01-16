@@ -346,7 +346,7 @@ resource "cloudflare_record" "ses_dkim" {
   zone_id = data.cloudflare_zone.this.id
   value   = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}.dkim.amazonses.com"
   tags    = local.cloudflare_tags
-  comment = "DMARC record for email authentication"
+  comment = "DKIM record for email authentication"
 }
 
 /*
