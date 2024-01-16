@@ -269,7 +269,7 @@ resource "cloudflare_record" "dns" {
   value   = data.terraform_remote_state.common.outputs.alb_dns_name
   type    = "CNAME"
   proxied = true
-  tags    = local.tags
+  tags    = local.cloudflare_tags
 }
 
 data "cloudflare_zone" "this" {
