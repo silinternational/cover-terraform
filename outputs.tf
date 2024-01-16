@@ -14,13 +14,13 @@ output "api_url" {
   value = "https://${var.subdomain_api}.${var.cloudflare_domain}"
 }
 
-output "aws_ses_access_key_id" {
-  description = "access key for SES (internal and Auth0) and S3 (attachments)"
+output "aws_cover_access_key_id" {
+  description = "access key for SES (internal and Auth0), S3 (attachments), and SSM"
   value       = aws_iam_access_key.cover.id
 }
 
-output "aws_ses_secret_access_key" {
-  description = "access key secret for SES (internal and Auth0) and S3 (attachments)"
+output "aws_cover_secret_access_key" {
+  description = "access key secret for SES (internal and Auth0), S3 (attachments), and SSM"
   value       = aws_iam_access_key.cover.secret
   sensitive   = true
 }

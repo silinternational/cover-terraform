@@ -34,9 +34,11 @@ variable "adminer_plugins" {
 }
 
 variable "aws_access_key" {
+  default = null
 }
 
 variable "aws_secret_key" {
+  default = null
 }
 
 variable "aws_s3_bucket" {
@@ -44,6 +46,7 @@ variable "aws_s3_bucket" {
 
 variable "cloudflare_token" {
   description = "Limited access token for DNS updates"
+  default     = null
 }
 
 variable "cloudflare_domain" {
