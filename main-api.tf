@@ -305,3 +305,14 @@ module "backup_rds" {
   notification_events  = var.backup_notification_events
   sns_topic_arn        = var.backup_sns_topic_arn
 }
+
+/*
+ * AWS SES email identity
+ */
+resource "aws_ses_email_identity" "this" {
+  email = var.email_from_address
+}
+import {
+  id = var.email_from_address
+  to = aws_ses_email_identity.this
+}
