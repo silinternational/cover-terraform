@@ -360,16 +360,3 @@ resource "cloudflare_record" "dmarc" {
   comment = "DMARC record for ${local.email_domain}"
   tags    = local.cloudflare_tags
 }
-
-
-/*
- * Postmaster Tools DNS verification
- */
-resource "cloudflare_record" "postmaster_tools" {
-  name    = local.email_domain
-  type    = "TXT"
-  zone_id = data.cloudflare_zone.this.id
-  value   = "google-site-verification=GZpqhdd9TYF4RWBTQjZz4d86t6Helyhwdd6J1woQ3d4"
-  comment = "verification for Google Postmaster Tools"
-  tags    = local.cloudflare_tags
-}
