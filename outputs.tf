@@ -50,3 +50,15 @@ output "bkup_cron_schedule" {
 output "backup_notification_events" {
   value = var.enable_db_backup ? join(", ", var.backup_notification_events) : ""
 }
+
+
+/*
+ * Output message
+ */
+
+output "message" {
+  value = join("\n", [<<-EOT
+    Tags for SES Verified Identity are not added automatically. If not already added, add these tags in the AWS Console:
+    EOT
+  ], [for k, v in local.tags : format("%s: %s", k, v)])
+}
