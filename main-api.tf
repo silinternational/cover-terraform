@@ -341,7 +341,7 @@ resource "aws_ses_domain_dkim" "this" {
 resource "cloudflare_record" "ses_dkim" {
   count = 3
 
-  name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey"
+  name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${local.email_domain}"
   type    = "CNAME"
   zone_id = data.cloudflare_zone.this.id
   value   = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}.dkim.amazonses.com"
