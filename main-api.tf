@@ -363,3 +363,26 @@ resource "cloudflare_record" "dmarc" {
   comment = "DMARC record for ${local.email_domain}"
   tags    = local.cloudflare_tags
 }
+
+resource "cloudflare_ruleset" "hsts" {
+  count = var.hsts_max_age != "0" ? 1 : 0
+
+  zone_id = data.cloudflare_zone.this.id
+  name    = "Add HSTS Strict-Transport-Security header"
+  kind    = "zone"
+  phase   = "http_response_headers_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Strict-Transport-Security"
+        operation = "set"
+        value     = "max-age=${var.hsts_max_age}"
+      }
+    }
+    expression  = "(http.host eq \"${var.subdomain_ui}.${var.cloudflare_domain}\")"
+    description = "HSTS on Cover"
+    enabled     = true
+  }
+}
