@@ -339,7 +339,7 @@ resource "aws_ses_domain_dkim" "this" {
 }
 
 resource "cloudflare_record" "ses_dkim" {
-  count = length(aws_ses_domain_dkim.this.dkim_tokens)
+  count = 3
 
   name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${local.email_domain}"
   type    = "CNAME"
