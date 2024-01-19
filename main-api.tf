@@ -339,7 +339,7 @@ resource "aws_ses_domain_dkim" "this" {
 }
 
 resource "cloudflare_record" "ses_dkim" {
-  count = 3
+  count = length(aws_ses_domain_dkim.this.dkim_tokens)
 
   name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${local.email_domain}"
   type    = "CNAME"
@@ -356,7 +356,10 @@ resource "cloudflare_record" "dmarc" {
   name    = "_dmarc.${local.email_domain}"
   type    = "TXT"
   zone_id = data.cloudflare_zone.this.id
-  value   = "v=DMARC1; p=none; sp=reject" // no filtering on base domain, reject all for subdomains
+
+  // `p=none` means no filtering on base domain, `sp=reject` means reject all for subdomains
+  value = "v=DMARC1; p=none; sp=reject"
+
   comment = "DMARC record for ${local.email_domain}"
   tags    = local.cloudflare_tags
 }
