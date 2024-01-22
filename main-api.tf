@@ -1,3 +1,13 @@
+
+locals {
+  tags = merge({
+    managed_by = "terraform"
+    workspace  = terraform.workspace
+  }, var.tags)
+  cloudflare_tags = [for k, v in local.tags : "${k}:${v}"]
+  email_domain    = split("@", var.email_from_address)[1]
+}
+
 locals {
   app_name_and_env = "${var.app_name}-${data.terraform_remote_state.common.outputs.app_env}"
   app_env          = data.terraform_remote_state.common.outputs.app_env
@@ -254,19 +264,16 @@ module "ecsapi" {
  * Create Cloudflare DNS record
  */
 resource "cloudflare_record" "dns" {
-  zone_id = data.cloudflare_zones.domain.zones[0].id
+  zone_id = data.cloudflare_zone.this.id
   name    = var.subdomain_api
   value   = data.terraform_remote_state.common.outputs.alb_dns_name
   type    = "CNAME"
   proxied = true
+  tags    = local.cloudflare_tags
 }
 
-data "cloudflare_zones" "domain" {
-  filter {
-    name        = var.cloudflare_domain
-    lookup_type = "exact"
-    status      = "active"
-  }
+data "cloudflare_zone" "this" {
+  name = var.cloudflare_domain
 }
 
 module "adminer" {
@@ -304,4 +311,55 @@ module "backup_rds" {
   backup_cron_schedule = var.backup_cron_schedule
   notification_events  = var.backup_notification_events
   sns_topic_arn        = var.backup_sns_topic_arn
+}
+
+
+/*
+ * SES configurations
+ */
+
+# TXT record for SPF
+resource "cloudflare_record" "ses_spf" {
+  name    = local.email_domain
+  type    = "TXT"
+  zone_id = data.cloudflare_zone.this.id
+  value   = "v=spf1 include:amazonses.com -all"
+  tags    = local.cloudflare_tags
+  comment = "SPF record for email authentication"
+}
+
+resource "aws_ses_domain_identity" "this" {
+  domain = local.email_domain
+}
+
+
+# DKIM records
+resource "aws_ses_domain_dkim" "this" {
+  domain = aws_ses_domain_identity.this.domain
+}
+
+resource "cloudflare_record" "ses_dkim" {
+  count = 3
+
+  name    = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}._domainkey.${local.email_domain}"
+  type    = "CNAME"
+  zone_id = data.cloudflare_zone.this.id
+  value   = "${element(aws_ses_domain_dkim.this.dkim_tokens, count.index)}.dkim.amazonses.com"
+  tags    = local.cloudflare_tags
+  comment = "DKIM record for email authentication"
+}
+
+/*
+ * DMARC record
+ */
+resource "cloudflare_record" "dmarc" {
+  name    = "_dmarc.${local.email_domain}"
+  type    = "TXT"
+  zone_id = data.cloudflare_zone.this.id
+
+  // `p=none` means no filtering on base domain, `sp=reject` means reject all for subdomains
+  value = "v=DMARC1; p=none; sp=reject"
+
+  comment = "DMARC record for ${local.email_domain}"
+  tags    = local.cloudflare_tags
 }
