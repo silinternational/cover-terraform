@@ -382,7 +382,7 @@ resource "cloudflare_ruleset" "hsts" {
       }
     }
     expression  = "(http.host eq \"${var.subdomain_ui}.${var.cloudflare_domain}\")"
-    description = "HSTS on Cover"
+    description = "HSTS on Cover UI"
     enabled     = true
   }
 }
