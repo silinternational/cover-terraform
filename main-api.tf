@@ -229,7 +229,6 @@ locals {
       SUPPORT_URL                         = var.support_url
       FAQ_URL                             = var.faq_url
       SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
-      CLOUDFLARE_TOKEN                    = var.cloudflare_token
       CLAIM_INCOME_ACCOUNT                = var.claim_income_account
       EXPENSE_ACCOUNT                     = var.expense_account
       FISCAL_START_MONTH                  = var.fiscal_start_month
