@@ -11,7 +11,7 @@ output "ui_url" {
 }
 
 output "api_url" {
-  value = "https://${var.subdomain_api}.${var.cloudflare_domain}"
+  value = local.api_url
 }
 
 output "aws_cover_access_key_id" {
