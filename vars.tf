@@ -45,8 +45,10 @@ variable "aws_s3_bucket" {
 }
 
 variable "cloudflare_token" {
-  description = "Limited access token for DNS updates"
+  description = "Limited access token to manage DNS and Transform Rules"
+  type        = string
   default     = null
+  sensitive   = true
 }
 
 variable "cloudflare_domain" {
@@ -261,4 +263,10 @@ variable "policy_max_coverage" {
   description = "The maximum coverage amount for a single policy, in US Dollars."
   type        = number
   default     = 50000
+}
+
+variable "hsts_max_age" {
+  description = "Set a non-zero value to add a Cloudflare Transform Rule to set an HSTS header with the given max-age"
+  type        = string
+  default     = "0"
 }
