@@ -6,6 +6,9 @@ locals {
   }, var.tags)
   cloudflare_tags = [for k, v in local.tags : "${k}:${v}"]
   email_domain    = split("@", var.email_from_address)[1]
+
+  ui_hostname  = "${var.subdomain_ui}.${var.cloudflare_domain}"
+  api_hostname = "${var.subdomain_api}.${var.cloudflare_domain}"
 }
 
 locals {
@@ -380,7 +383,7 @@ resource "cloudflare_ruleset" "hsts" {
         value     = "max-age=${var.hsts_max_age}"
       }
     }
-    expression  = "(http.host eq \"${var.subdomain_ui}.${var.cloudflare_domain}\")"
+    expression  = "(http.host eq \"${local.ui_hostname}\") or (http.host eq \"${local.api_hostname}\")"
     description = "HSTS on Cover UI"
     enabled     = true
   }
