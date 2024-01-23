@@ -6,6 +6,10 @@ locals {
   }, var.tags)
   cloudflare_tags = [for k, v in local.tags : "${k}:${v}"]
   email_domain    = split("@", var.email_from_address)[1]
+
+  ui_hostname  = "${var.subdomain_ui}.${var.cloudflare_domain}"
+  api_hostname = "${var.subdomain_api}.${var.cloudflare_domain}"
+  api_url      = "https://${local.api_hostname}"
 }
 
 locals {
@@ -61,7 +65,7 @@ resource "aws_alb_listener_rule" "tg" {
 
   condition {
     host_header {
-      values = ["${var.subdomain_api}.${var.cloudflare_domain}"]
+      values = [local.api_hostname]
     }
   }
 
@@ -196,7 +200,7 @@ locals {
       docker_tag                          = var.docker_tag
       APP_ENV                             = local.app_env
       DATABASE_URL                        = "postgres://${var.db_user}:${random_id.db_password.hex}@${module.rds.address}:5432/${var.db_database}?sslmode=disable"
-      HOST                                = "https://${var.subdomain_api}.${var.cloudflare_domain}"
+      HOST                                = local.api_url
       AWS_REGION                          = var.aws_region
       AWS_S3_BUCKET                       = var.aws_s3_bucket
       AWS_ACCESS_KEY_ID                   = aws_iam_access_key.cover.id
@@ -208,7 +212,7 @@ locals {
       log_stream_prefix                   = local.app_name_and_env
       LOG_LEVEL                           = var.log_level
       DISABLE_TLS                         = var.disable_tls
-      API_BASE_URL                        = "https://${var.subdomain_api}.${var.cloudflare_domain}"
+      API_BASE_URL                        = local.api_url
       APP_NAME                            = var.app_name_user
       APP_NAME_LONG                       = var.app_name_long
       SAML_SP_ENTITY_ID                   = var.saml_sp_entity_id
@@ -229,7 +233,6 @@ locals {
       SUPPORT_URL                         = var.support_url
       FAQ_URL                             = var.faq_url
       SANDBOX_EMAIL_ADDRESS               = var.sandbox_email_address
-      CLOUDFLARE_TOKEN                    = var.cloudflare_token
       CLAIM_INCOME_ACCOUNT                = var.claim_income_account
       EXPENSE_ACCOUNT                     = var.expense_account
       FISCAL_START_MONTH                  = var.fiscal_start_month
@@ -362,4 +365,27 @@ resource "cloudflare_record" "dmarc" {
 
   comment = "DMARC record for ${local.email_domain}"
   tags    = local.cloudflare_tags
+}
+
+resource "cloudflare_ruleset" "hsts" {
+  count = var.hsts_max_age != "0" ? 1 : 0
+
+  zone_id = data.cloudflare_zone.this.id
+  name    = "Add HSTS Strict-Transport-Security header"
+  kind    = "zone"
+  phase   = "http_response_headers_transform"
+
+  rules {
+    action = "rewrite"
+    action_parameters {
+      headers {
+        name      = "Strict-Transport-Security"
+        operation = "set"
+        value     = "max-age=${var.hsts_max_age}"
+      }
+    }
+    expression  = "(http.host eq \"${local.ui_hostname}\") or (http.host eq \"${local.api_hostname}\")"
+    description = "HSTS on Cover"
+    enabled     = true
+  }
 }

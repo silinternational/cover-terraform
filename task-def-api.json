@@ -74,10 +74,6 @@
         "value": "${DISABLE_TLS}"
       },
       {
-        "name": "CLOUDFLARE_TOKEN",
-        "value": "${CLOUDFLARE_TOKEN}"
-      },
-      {
         "name": "API_BASE_URL",
         "value": "${API_BASE_URL}"
       },
