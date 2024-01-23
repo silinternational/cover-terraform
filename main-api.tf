@@ -385,7 +385,7 @@ resource "cloudflare_ruleset" "hsts" {
       }
     }
     expression  = "(http.host eq \"${local.ui_hostname}\") or (http.host eq \"${local.api_hostname}\")"
-    description = "HSTS on Cover UI"
+    description = "HSTS on Cover"
     enabled     = true
   }
 }
