@@ -97,7 +97,7 @@ resource "random_id" "db_password" {
  * Create new rds instance
  */
 module "rds" {
-  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.6.2"
+  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=develop"
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
@@ -111,6 +111,7 @@ module "rds" {
   availability_zone   = data.terraform_remote_state.common.outputs.aws_zones[0]
   security_groups     = [data.terraform_remote_state.common.outputs.vpc_default_sg_id]
   deletion_protection = var.db_deletion_protection
+  ca_cert_identifier  = "rds-ca-rsa2048-g1"
 }
 
 /*
