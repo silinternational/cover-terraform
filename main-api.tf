@@ -23,7 +23,7 @@ locals {
  * Create ECR repo
  */
 module "ecr" {
-  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.6.2"
+  source              = "github.com/silinternational/terraform-modules//aws/ecr?ref=8.8.0"
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
@@ -97,7 +97,7 @@ resource "random_id" "db_password" {
  * Create new rds instance
  */
 module "rds" {
-  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=develop"
+  source              = "github.com/silinternational/terraform-modules//aws/rds/mariadb?ref=8.8.0"
   app_name            = var.app_name
   app_env             = local.app_env
   engine              = "postgres"
@@ -253,7 +253,7 @@ locals {
  * Create new ecs service
  */
 module "ecsapi" {
-  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.6.2"
+  source             = "github.com/silinternational/terraform-modules//aws/ecs/service-only?ref=8.8.0"
   cluster_id         = data.terraform_remote_state.common.outputs.ecs_cluster_id
   service_name       = "${var.app_name}-api"
   service_env        = local.app_env
@@ -307,7 +307,7 @@ module "adminer" {
  */
 module "backup_rds" {
   count                = var.enable_db_backup ? 1 : 0
-  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=8.6.2"
+  source               = "github.com/silinternational/terraform-modules//aws/backup/rds?ref=8.8.0"
   app_name             = var.app_name
   app_env              = local.app_env
   aws_access_key       = var.aws_access_key
