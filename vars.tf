@@ -139,6 +139,10 @@ variable "saml_idp_entity_id" {
 variable "saml_idp_cert" {
 }
 
+variable "saml_idp_cert2" {
+  default = ""
+}
+
 variable "saml_sp_cert" {
 }
 

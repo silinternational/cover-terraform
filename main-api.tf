@@ -219,6 +219,7 @@ locals {
       SAML_SP_ENTITY_ID                   = var.saml_sp_entity_id
       SAML_IDP_ENTITY_ID                  = var.saml_idp_entity_id
       SAML_IDP_CERT                       = var.saml_idp_cert
+      SAML_IDP_CERT2                      = var.saml_idp_cert2
       SAML_SP_CERT                        = var.saml_sp_cert
       SAML_SP_PRIVATE_KEY                 = var.saml_sp_private_key
       SAML_ASSERTION_CONSUMER_SERVICE_URL = var.saml_assertion_consumer_service_url
