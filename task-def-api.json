@@ -102,10 +102,6 @@
         "value": "${SAML_IDP_CERT}"
       },
       {
-        "name": "SAML_IDP_CERT2",
-        "value": "${SAML_IDP_CERT2}"
-      },
-      {
         "name": "SAML_SP_CERT",
         "value": "${SAML_SP_CERT}"
       },
