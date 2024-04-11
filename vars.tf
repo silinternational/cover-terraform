@@ -137,10 +137,15 @@ variable "saml_idp_entity_id" {
 }
 
 variable "saml_idp_cert" {
+  description = "IdP public certificate for SAML authentication"
+  type        = string
+  default     = ""
 }
 
 variable "saml_idp_cert2" {
-  default = ""
+  description = "Alternate IdP public certificate for SAML authentication. Typically used for updating to a new cert."
+  type        = string
+  default     = ""
 }
 
 variable "saml_sp_cert" {
