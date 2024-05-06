@@ -27,7 +27,7 @@ module "ecr" {
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
-  cd_user_arn         = data.terraform_remote_state.common.outputs.codeship_arn
+  cd_user_arn         = data.terraform_remote_state.common.outputs.cd_arn
 }
 
 /*
