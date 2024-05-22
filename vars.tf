@@ -284,18 +284,20 @@ variable "hsts_max_age" {
 variable "cd_user_policy" {
   description = "policy for deployment user to pull images from ECR and deploy tasks to ECS"
   type        = string
-  default = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "ecs:*",
-          "ecr:GetAuthorizationToken",
-          "iam:PassRole",
-        ],
-        Resource = "*"
-      }
-    ]
-  })
+  default     = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecs:*",
+        "ecr:GetAuthorizationToken",
+        "iam:PassRole"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
 }
