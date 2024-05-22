@@ -27,7 +27,7 @@ module "ecr" {
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
-  cd_user_arn         = data.terraform_remote_state.common.outputs.cd_arn
+  cd_user_arn         = aws_iam_user.cd.arn
 }
 
 /*
@@ -390,4 +390,22 @@ resource "cloudflare_ruleset" "hsts" {
     description = "HSTS on Cover"
     enabled     = true
   }
+}
+
+
+/*
+ * Create CD (Continuous Deployment) User
+ */
+resource "aws_iam_user" "cd" {
+  name = "cd-${local.app_name_and_env}"
+}
+
+resource "aws_iam_access_key" "cd" {
+  user = aws_iam_user.cd.name
+}
+
+resource "aws_iam_user_policy" "cd" {
+  name   = "cd-${local.app_name_and_env}"
+  user   = aws_iam_user.cd.name
+  policy = var.cd_user_policy
 }

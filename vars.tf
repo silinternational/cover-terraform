@@ -279,3 +279,25 @@ variable "hsts_max_age" {
   type        = string
   default     = "0"
 }
+
+// TODO: reduce Action and Resource to minimum required for least-privilege access
+variable "cd_user_policy" {
+  description = "policy for deployment user to pull images from ECR and deploy tasks to ECS"
+  type        = string
+  default     = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecs:*",
+        "ecr:GetAuthorizationToken",
+        "iam:PassRole",
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
