@@ -17,6 +17,7 @@ locals {
   app_env          = data.terraform_remote_state.common.outputs.app_env
   app_environment  = data.terraform_remote_state.common.outputs.app_environment
   name_tag_suffix  = "${var.app_name}-${var.customer}-${local.app_environment}"
+  aws_account      = data.aws_caller_identity.this.account_id
 }
 
 /*
@@ -27,7 +28,7 @@ module "ecr" {
   repo_name           = local.app_name_and_env
   ecsInstanceRole_arn = data.terraform_remote_state.common.outputs.ecsInstanceRole_arn
   ecsServiceRole_arn  = data.terraform_remote_state.common.outputs.ecsServiceRole_arn
-  cd_user_arn         = aws_iam_user.cd.arn
+  cd_user_arn         = "arn:aws:iam::${local.aws_account}:user/cd-${var.app_name}-stg"
 }
 
 /*
@@ -153,7 +154,7 @@ resource "aws_iam_user_policy" "cover" {
             "ssm:GetParameters",
             "ssm:GetParameter",
           ]
-          Resource = "arn:aws:ssm:*:${data.aws_caller_identity.this.account_id}:parameter/${var.app_name}/*"
+          Resource = "arn:aws:ssm:*:${local.aws_account}:parameter/${var.app_name}/*"
         },
       ]
   })
