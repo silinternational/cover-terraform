@@ -397,15 +397,21 @@ resource "cloudflare_ruleset" "hsts" {
  * Create CD (Continuous Deployment) User
  */
 resource "aws_iam_user" "cd" {
+  count = local.app_env == "stg" ? 1 : 0
+
   name = "cd-${local.app_name_and_env}"
 }
 
 resource "aws_iam_access_key" "cd" {
-  user = aws_iam_user.cd.name
+  count = local.app_env == "stg" ? 1 : 0
+
+  user = one(aws_iam_user.cd[*].name)
 }
 
 resource "aws_iam_user_policy" "cd" {
+  count = local.app_env == "stg" ? 1 : 0
+
   name   = "cd-${local.app_name_and_env}"
-  user   = aws_iam_user.cd.name
+  user   = one(aws_iam_user.cd[*].name)
   policy = var.cd_user_policy
 }
