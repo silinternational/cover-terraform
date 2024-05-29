@@ -416,3 +416,19 @@ resource "aws_iam_user_policy" "cd" {
   user   = one(aws_iam_user.cd[*].name)
   policy = var.cd_user_policy
 }
+
+resource "github_actions_secret" "aws_access_key_id" {
+  count = var.github_repository == "" ? 0 : 1
+
+  repository      = var.github_repository
+  secret_name     = "AWS_ACCESS_KEY_ID"
+  plaintext_value = one(aws_iam_access_key.cd[*].id)
+}
+
+resource "github_actions_secret" "aws_secret_access_key" {
+  count = var.github_repository == "" ? 0 : 1
+
+  repository      = var.github_repository
+  secret_name     = "AWS_SECRET_ACCESS_KEY"
+  plaintext_value = one(aws_iam_access_key.cd[*].secret)
+}

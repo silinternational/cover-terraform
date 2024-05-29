@@ -14,3 +14,7 @@ provider "aws" {
 provider "cloudflare" {
   api_token = var.cloudflare_token
 }
+
+provider "github" {
+  token = var.github_token
+}
