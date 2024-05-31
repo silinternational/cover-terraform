@@ -195,7 +195,7 @@ resource "aws_s3_bucket_policy" "attachments" {
         Sid    = "PushApiDocs"
         Effect = "Allow",
         Principal = {
-          AWS = aws_iam_user.cover.arn
+          AWS = aws_iam_user.cd.arn
         },
         Action   = "s3:PutObject",
         Resource = "arn:aws:s3:::${var.aws_s3_bucket}/api-docs/*",
