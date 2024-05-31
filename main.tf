@@ -162,15 +162,6 @@ resource "aws_iam_user_policy" "cover" {
 
 data "aws_caller_identity" "this" {}
 
-locals {
-  bucket_policy = templatefile("${path.module}/attachment-bucket-policy.json",
-    {
-      bucket_name = var.aws_s3_bucket
-      user_arn    = aws_iam_user.cover.arn
-    }
-  )
-}
-
 resource "aws_s3_bucket" "attachments" {
   bucket = var.aws_s3_bucket
 
@@ -186,7 +177,41 @@ resource "aws_s3_bucket_acl" "attachments" {
 
 resource "aws_s3_bucket_policy" "attachments" {
   bucket = aws_s3_bucket.attachments.id
-  policy = local.bucket_policy
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "BucketOwner"
+        Effect = "Allow"
+        Principal = {
+          AWS = aws_iam_user.cover.arn
+        }
+        Action = [
+          "s3:*",
+        ]
+        Resource = "arn:aws:s3:::${var.aws_s3_bucket}/*"
+      },
+      {
+        Sid    = "PushApiDocs"
+        Effect = "Allow",
+        Principal = {
+          AWS = aws_iam_user.cover.arn
+        },
+        Action   = "s3:PutObject",
+        Resource = "arn:aws:s3:::${var.aws_s3_bucket}/api-docs/*",
+      },
+      {
+        Sid       = "PublicReadApiDocs",
+        Effect    = "Allow",
+        Principal = "*",
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+        ],
+        Resource = "arn:aws:s3:::${var.aws_s3_bucket}/api-docs/*",
+      },
+    ]
+  })
 }
 
 /*
