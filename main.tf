@@ -191,11 +191,22 @@ resource "aws_s3_bucket_policy" "attachments" {
         ]
         Resource = "arn:aws:s3:::${var.aws_s3_bucket}/*"
       },
+    ]
+  })
+}
+
+resource "aws_s3_bucket_policy" "api_docs" {
+  count = local.app_env == "stg" ? 1 : 0
+
+  bucket = aws_s3_bucket.attachments.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
       {
         Sid    = "PushApiDocs"
         Effect = "Allow",
         Principal = {
-          AWS = aws_iam_user.cd.arn
+          AWS = one(aws_iam_user.cd[*].arn)
         },
         Action   = "s3:PutObject",
         Resource = "arn:aws:s3:::${var.aws_s3_bucket}/api-docs/*",
