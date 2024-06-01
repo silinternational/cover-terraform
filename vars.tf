@@ -301,3 +301,16 @@ variable "cd_user_policy" {
 }
 EOF
 }
+
+variable "github_token" {
+  description = "GitHub OAuth token, used to save the credentials for AWS deployment"
+  type        = string
+  default     = null
+  sensitive   = true
+}
+
+variable "github_repository" {
+  description = "name of a GitHub repository, used to save the credentials for AWS deployment"
+  type        = string
+  default     = ""
+}
