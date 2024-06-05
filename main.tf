@@ -179,7 +179,7 @@ resource "aws_s3_bucket_policy" "attachments" {
   bucket = aws_s3_bucket.attachments.id
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
+    Statement = concat([
       {
         Sid    = "BucketOwner"
         Effect = "Allow"
@@ -191,17 +191,6 @@ resource "aws_s3_bucket_policy" "attachments" {
         ]
         Resource = "arn:aws:s3:::${var.aws_s3_bucket}/*"
       },
-    ]
-  })
-}
-
-resource "aws_s3_bucket_policy" "api_docs" {
-  count = local.app_env == "stg" ? 1 : 0
-
-  bucket = aws_s3_bucket.attachments.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
       {
         Sid    = "PushApiDocs"
         Effect = "Allow",
@@ -221,7 +210,7 @@ resource "aws_s3_bucket_policy" "api_docs" {
         ],
         Resource = "arn:aws:s3:::${var.aws_s3_bucket}/api-docs/*",
       },
-    ]
+    ])
   })
 }
 
