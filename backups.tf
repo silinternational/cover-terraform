@@ -62,7 +62,7 @@ locals {
     docker_image          = var.db_backup_docker_image
     docker_tag            = var.db_backup_docker_tag
     memory                = var.backup_memory
-    s3_bucket             = "${data.aws_s3_bucket.backup.bucket}/db-backups/${data.terraform_remote_state.common.outputs.app_env}/" # TODO
+    s3_bucket             = var.aws_s3_bucket
     service_mode          = var.db_backup_service_mode
   })
 }
