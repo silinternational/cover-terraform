@@ -62,7 +62,7 @@ locals {
     docker_image          = var.db_backup_docker_image
     docker_tag            = var.db_backup_docker_tag
     memory                = var.backup_memory
-    s3_bucket             = var.aws_s3_bucket
+    s3_bucket             = var.db_backup_s3_bucket
     service_mode          = var.db_backup_service_mode
   })
 }
