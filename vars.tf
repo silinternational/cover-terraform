@@ -371,7 +371,7 @@ variable "db_backup_schedule" {
 }
 
 variable "db_backup_s3_bucket" {
-  default = "cover-stg-backups"
+  default = "cover-staging-backups"
 }
 
 variable "db_backup_service_mode" {
