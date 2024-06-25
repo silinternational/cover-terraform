@@ -356,8 +356,7 @@ variable "db_backup_docker_image" {
 }
 
 variable "db_backup_docker_tag" {
-  # default = "4.0.0"
-  default = "3.3.0"
+  default = "4.0.0"
 }
 
 variable "db_options" {
