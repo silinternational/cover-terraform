@@ -314,3 +314,65 @@ variable "github_repository" {
   type        = string
   default     = ""
 }
+
+/*
+ * Variables to support database backups
+ */
+
+variable "b2_application_key_id" {
+  description = "Backblaze application key ID"
+  type        = string
+  default     = ""
+}
+
+variable "b2_application_key" {
+  description = "Backblaze application key secret"
+  type        = string
+  default     = ""
+}
+
+variable "b2_bucket" {
+  description = "Name of the Backblaze B2 bucket, where secondary backups are sent (if set)"
+  type        = string
+  default     = ""
+}
+
+variable "b2_host" {
+  description = "Name of the Backblaze B2 host, where secondary backups are sent (when b2_bucket is set)"
+  type        = string
+  default     = ""
+}
+
+variable "backup_memory" {
+  default = "32"
+}
+
+variable "backup_cpu" {
+  default = "32"
+}
+
+variable "db_backup_docker_image" {
+  default = "silintl/postgresql-backup-restore"
+}
+
+variable "db_backup_docker_tag" {
+  default = "4.0.0"
+}
+
+variable "db_options" {
+  type        = string
+  default     = ""
+  description = "DB backup options (optional)"
+}
+
+variable "db_backup_schedule" {
+  default = "cron(0 2 * * ? *)"
+}
+
+variable "db_backup_s3_bucket" {
+  default = "cover-staging-backups"
+}
+
+variable "db_backup_service_mode" {
+  default = "backup"
+}
