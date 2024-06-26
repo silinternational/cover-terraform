@@ -338,7 +338,7 @@ variable "b2_bucket" {
 }
 
 variable "b2_host" {
-  description = "Name of the Backblaze B2 host, where secondary backups are sent (if set)"
+  description = "Name of the Backblaze B2 host, where secondary backups are sent (when b2_bucket is set)"
   type        = string
   default     = ""
 }

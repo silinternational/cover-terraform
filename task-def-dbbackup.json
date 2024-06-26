@@ -80,7 +80,7 @@
     "mountPoints": [],
     "workingDirectory": null,
     "dockerSecurityOptions": null,
-    "memory": ${memory},
+    "memory": null,
     "memoryReservation": ${memory},
     "volumesFrom": [],
     "image": "${docker_image}:${docker_tag}",
