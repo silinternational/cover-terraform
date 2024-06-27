@@ -489,7 +489,7 @@ resource "aws_iam_user_policy" "backup" {
         Action = [
           "s3:PutObject"
         ],
-        Resource = "${data.aws_s3_bucket.backup.arn}/db-backups/*"
+        Resource = "${data.aws_s3_bucket.backup.arn}/*"
       }
     ]
   })
