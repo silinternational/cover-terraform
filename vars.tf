@@ -316,7 +316,7 @@ variable "github_repository" {
 }
 
 /*
- * Variables to support database backups
+ * Variables to support database and S3 backups
  */
 
 variable "b2_application_key_id" {
@@ -359,6 +359,14 @@ variable "db_backup_docker_tag" {
   default = "4.0.0"
 }
 
+variable "s3_backup_docker_image" {
+  default = "silintl/sync-s3-to-b2"
+}
+
+variable "s3_backup_docker_tag" {
+  default = "1.0.0"
+}
+
 variable "db_options" {
   type        = string
   default     = ""
@@ -375,4 +383,22 @@ variable "db_backup_s3_bucket" {
 
 variable "db_backup_service_mode" {
   default = "backup"
+}
+
+variable "rclone_arguments" {
+  type        = string
+  default     = ""
+  description = "(optional) e.g., --combined -"
+}
+
+variable "s3_path" {
+  default = "*"
+}
+
+variable "b2_path" {
+  default = "s3_backup"
+}
+
+variable "s3_clone_schedule" {
+  default = "cron(10 2 * * ? *)"
 }
