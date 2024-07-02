@@ -627,8 +627,8 @@ resource "aws_iam_user_policy" "clone" {
       {
         Effect = "Allow"
         Action = [
-          "s3:GetObject"
-        ],
+          "s3:GetObject",
+        ]
         Resource = "${data.aws_s3_bucket.s3_data_bucket.arn}/*"
       }
     ]
@@ -660,7 +660,7 @@ locals {
 }
 
 /*
- * Create role for scheduled running of cron task definitions.
+ * Create role for scheduled running of rclone task definition.
  */
 resource "aws_iam_role" "rclone_event" {
   name = "rclone_event-${var.app_name}-${local.app_env}-s3copy"
@@ -702,7 +702,7 @@ resource "aws_iam_role_policy" "rclone_event_run_task_with_any_role" {
 }
 
 /*
- * Create cron task definition
+ * Create bucket clone task definition
  */
 resource "aws_ecs_task_definition" "clone_cron_td" {
   family                = "${var.app_name}-clone-${local.app_env}"

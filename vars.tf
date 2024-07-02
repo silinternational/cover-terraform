@@ -360,11 +360,15 @@ variable "db_backup_docker_tag" {
 }
 
 variable "s3_backup_docker_image" {
-  default = "silintl/sync-s3-to-b2"
+  description = "Docker image for the S3-to-B2 backup task"
+  type        = string
+  default     = "silintl/sync-s3-to-b2"
 }
 
 variable "s3_backup_docker_tag" {
-  default = "1.0.0"
+  description = "Docker tag for the S3-to-B2 backup task"
+  type        = string
+  default     = "1.0.0"
 }
 
 variable "db_options" {
@@ -386,19 +390,25 @@ variable "db_backup_service_mode" {
 }
 
 variable "rclone_arguments" {
+  description = "(optional) e.g., --combined -"
   type        = string
   default     = ""
-  description = "(optional) e.g., --combined -"
 }
 
 variable "s3_path" {
-  default = "*"
+  description = "Path to be backed up within the AWS S3 bucket"
+  type        = string
+  default     = "*"
 }
 
 variable "b2_path" {
-  default = "s3_backup"
+  description = "Path within the Backblaze B2 bucket where files will be stored"
+  type        = string
+  default     = "s3_backup"
 }
 
 variable "s3_clone_schedule" {
-  default = "cron(10 2 * * ? *)"
+  description = "S3-to-B2 backup schedule"
+  type        = string
+  default     = "cron(10 2 * * ? *)" # Every day at 02:10 UTC
 }
