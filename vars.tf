@@ -316,7 +316,7 @@ variable "github_repository" {
 }
 
 /*
- * Variables to support database backups
+ * Variables to support database and S3 backups
  */
 
 variable "b2_application_key_id" {
@@ -359,6 +359,18 @@ variable "db_backup_docker_tag" {
   default = "4.0.0"
 }
 
+variable "s3_backup_docker_image" {
+  description = "Docker image for the S3-to-B2 backup task"
+  type        = string
+  default     = "silintl/sync-s3-to-b2"
+}
+
+variable "s3_backup_docker_tag" {
+  description = "Docker tag for the S3-to-B2 backup task"
+  type        = string
+  default     = "1.0.0"
+}
+
 variable "db_options" {
   type        = string
   default     = ""
@@ -375,4 +387,28 @@ variable "db_backup_s3_bucket" {
 
 variable "db_backup_service_mode" {
   default = "backup"
+}
+
+variable "rclone_arguments" {
+  description = "(optional) e.g., --combined -"
+  type        = string
+  default     = ""
+}
+
+variable "s3_path" {
+  description = "Path to be backed up within the AWS S3 bucket"
+  type        = string
+  default     = "*"
+}
+
+variable "b2_path" {
+  description = "Path within the Backblaze B2 bucket where files will be stored"
+  type        = string
+  default     = "s3_backup"
+}
+
+variable "s3_clone_schedule" {
+  description = "S3-to-B2 backup schedule"
+  type        = string
+  default     = "cron(10 2 * * ? *)" # Every day at 02:10 UTC
 }
